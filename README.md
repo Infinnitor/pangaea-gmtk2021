@@ -1,7 +1,13 @@
 # gamists-gmtk-2021
 Ye it the game jam
 
-# ideas will go here:
+# main idea will go here:
+
+island that wants to be a continent
+- visual novel to convince nations to join your continent
+- 2d katamari
+- agar.io gameplay??????
+- metroid map movement
 
 # Joined together
 
@@ -10,6 +16,10 @@ Ye it the game jam
 
 - 2 player snake
   - both ends of the same snake
+  - turret control
+  - turret cannot hit the snake's head
+  - little goblin beings taking the food
+    - stop them
 
 - health joined to something else
   - platformer where you make different variables the same
@@ -18,3 +28,16 @@ Ye it the game jam
 
 - each control half of one person
   - cooking game
+  - beat em up, legs and torso
+    - split apart, put back together the wrong way around?
+
+- TWO magnets that you have to keep apart
+
+- join with the enemy's body parts to gain powers
+    - join TWO enemies together
+
+- jigsaw game
+
+
+
+- amonugs type game
