@@ -10,6 +10,8 @@ island that wants to be a continent
 - metroid map movement
 - mc is pangaea
 - diplomacy minigame
+- joining together minigame
+- player gets slower as more landmass is added
 
 
 # Joined together
