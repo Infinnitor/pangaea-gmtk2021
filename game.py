@@ -18,13 +18,16 @@ class game_info():
 
         self.current_chunk = start_chunk
 
+        self.run = True
+
     def update_keys(self):
 
         self.keys = pygame.key.get_pressed()
 
-#   |||
-#   |||
-#   |||
+    def change_chunk(direction):
+        if direction == "Left":
+            self.current_chunk - 1
+
 
 
 class map_chunk():
@@ -55,6 +58,10 @@ class player():
         self.sprites = sprites_dict
 
     def update_move(self, game):
+
+        self.old_x = self.x
+        self.old_y = self.y
+
         if game.keys[pygame.K_LEFT]:
             self.x -= self.speed
 
@@ -67,20 +74,52 @@ class player():
         if game.keys[pygame.K_DOWN]:
             self.y += self.speed
 
+        on_border = self.border_check(game)
+
+        if on_border:
+            game.change_chunk(on_border)
+
+    def border_check(self, game):
+
+        border_pos = False
+
+        if self.x + (self.width // 2) < 0:
+            border_pos = "Left"
+
+        elif self.x + (self.width // 2) > game.win_w:
+            border_pos = "Right"
+
+        elif self.y + (self.height // 2) < 0:
+            border_pos = "Up"
+
+        elif self.y + (self.height // 2) > game.win_h:
+            border_pos = "Down"
+
+        if border_pos:
+            if game.chunks[game.current_chunk].borders[border_pos]:
+                pass
+            else:
+                self.x = self.old_x
+                self.y = self.old_y
+
     def update_draw(self, game):
         pygame.draw.rect(game.win, (155, 40, 40), (self.x, self.y, self.width, self.height))
 
 
-game = game_info(win_w=1200, win_h=720, chunks=(None, None, None, None, None, None))
+local_chunks = [
+    map_chunk(index=0, name="Top-Left", countries=("North America"), borders_dict={"Left" : False, "Right" : True, "Up" : False, "Down" : False}, bg=(0, 155, 100)),
+    map_chunk(index=1, name="Top-Middle", countries=("Eurasia"), borders_dict={"Left": False, "Right": False, "Up": False, "Down": False}, bg=(183, 107, 103)),
+    map_chunk(index=2, name="Top-Right", countries=("North America"), borders_dict={"Left" : True, "Right" : False, "Up" : False, "Down" : False}, bg=(140, 0, 219))
+]
 
 
-pangea = player(start_x=600, start_y=400, speed=5, start_width=100, start_height=100, start_chunk=0, sprites_dict=None)
+game = game_info(win_w=1200, win_h=720, chunks=local_chunks, start_chunk=1)
 
-run = True
+pangea = player(start_x=600, start_y=400, speed=5, start_width=100, start_height=100, sprites_dict=None)
 
 clock = pygame.time.Clock()
 
-while run:
+while game.run:
 
     clock.tick(60)
 
@@ -94,6 +133,6 @@ while run:
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            run = False
+            game.run = False
 
 pygame.quit()
