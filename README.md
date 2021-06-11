@@ -8,6 +8,9 @@ island that wants to be a continent
 - 2d katamari
 - agar.io gameplay??????
 - metroid map movement
+- mc is pangaea
+- diplomacy minigame
+
 
 # Joined together
 

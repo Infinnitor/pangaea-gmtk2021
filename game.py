@@ -17,7 +17,7 @@ class game_info():
         self.bg = bg_colour
 
 
-game = game_info(win_w=1200, win_h=800, bg_colour=(0, 0, 0))
+game = game_info(win_w=1200, win_h=720, bg_colour=(0, 0, 0))
 
 run = True
 while run:
