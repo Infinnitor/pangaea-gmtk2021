@@ -483,57 +483,57 @@ class player():
 
 # Speechbubble sprite
 speechbubble_var = pygame.image.load('data/sprites/ICONS/SpeechBubble.png')
-sea_var = pygame.image.load('data/sprites/countries/sea.png')
+sea_var = pygame.image.load('data/sprites/COUNTRIES/sea.png')
 
 # Loading all sprites to be used and adding them to dictionaries
 pangaea_sprites = {
-    "Default" : pygame.image.load('data/sprites/countries/pangea/head.png'),
-    "Head" : pygame.image.load('data/sprites/countries/pangea/head.png'),
-    "happy" : pygame.image.load('data/sprites/countries/pangea/happy.png'),
-    "angry" : pygame.image.load('data/sprites/countries/pangea/angry.png'),
-    "sad" : pygame.image.load('data/sprites/countries/pangea/sad.png'),
+    "Default" : pygame.image.load('data/sprites/COUNTRIES/pangea/head.png'),
+    "Head" : pygame.image.load('data/sprites/COUNTRIES/pangea/head.png'),
+    "happy" : pygame.image.load('data/sprites/COUNTRIES/pangea/happy.png'),
+    "angry" : pygame.image.load('data/sprites/COUNTRIES/pangea/angry.png'),
+    "sad" : pygame.image.load('data/sprites/COUNTRIES/pangea/sad.png'),
     "SpeechBubble" : speechbubble_var
 }
 africa_sprites = {
-    "Head" : pygame.image.load('data/sprites/countries/africa/head.png'),
-    "happy" : pygame.image.load('data/sprites/countries/africa/happy.png'),
-    "angry" : pygame.image.load('data/sprites/countries/africa/angry.png'),
-    "sad" : pygame.image.load('data/sprites/countries/africa/sad.png'),
+    "Head" : pygame.image.load('data/sprites/COUNTRIES/africa/head.png'),
+    "happy" : pygame.image.load('data/sprites/COUNTRIES/africa/happy.png'),
+    "angry" : pygame.image.load('data/sprites/COUNTRIES/africa/angry.png'),
+    "sad" : pygame.image.load('data/sprites/COUNTRIES/africa/sad.png'),
     "SpeechBubble" : speechbubble_var
 }
 australia_sprites = {
-    "Head" : pygame.image.load('data/sprites/countries/australia/head.png'),
-    "happy" : pygame.image.load('data/sprites/countries/australia/happy.png'),
-    "angry" : pygame.image.load('data/sprites/countries/australia/angry.png'),
-    "sad" : pygame.image.load('data/sprites/countries/australia/sad.png'),
+    "Head" : pygame.image.load('data/sprites/COUNTRIES/australia/head.png'),
+    "happy" : pygame.image.load('data/sprites/COUNTRIES/australia/happy.png'),
+    "angry" : pygame.image.load('data/sprites/COUNTRIES/australia/angry.png'),
+    "sad" : pygame.image.load('data/sprites/COUNTRIES/australia/sad.png'),
     "SpeechBubble" : speechbubble_var
 }
 euraisa_sprites = {
-    "Head" : pygame.image.load('data/sprites/countries/euraisa/head.png'),
-    "happy" : pygame.image.load('data/sprites/countries/euraisa/happy.png'),
-    "angry" : pygame.image.load('data/sprites/countries/euraisa/angry.png'),
-    "sad" : pygame.image.load('data/sprites/countries/euraisa/sad.png'),
+    "Head" : pygame.image.load('data/sprites/COUNTRIES/euraisa/head.png'),
+    "happy" : pygame.image.load('data/sprites/COUNTRIES/euraisa/happy.png'),
+    "angry" : pygame.image.load('data/sprites/COUNTRIES/euraisa/angry.png'),
+    "sad" : pygame.image.load('data/sprites/COUNTRIES/euraisa/sad.png'),
     "SpeechBubble" : speechbubble_var
 }
 india_sprites = {
-    "Head" : pygame.image.load('data/sprites/countries/india/head.png'),
-    "happy" : pygame.image.load('data/sprites/countries/india/happy.png'),
-    "angry" : pygame.image.load('data/sprites/countries/india/angry.png'),
-    "sad" : pygame.image.load('data/sprites/countries/india/sad.png'),
+    "Head" : pygame.image.load('data/sprites/COUNTRIES/india/head.png'),
+    "happy" : pygame.image.load('data/sprites/COUNTRIES/india/happy.png'),
+    "angry" : pygame.image.load('data/sprites/COUNTRIES/india/angry.png'),
+    "sad" : pygame.image.load('data/sprites/COUNTRIES/india/sad.png'),
     "SpeechBubble" : speechbubble_var
 }
 north_america_sprites = {
-    "Head" : pygame.image.load('data/sprites/countries/northAmerica/head.png'),
-    "happy" : pygame.image.load('data/sprites/countries/northAmerica/happy.png'),
-    "angry" : pygame.image.load('data/sprites/countries/northAmerica/angry.png'),
-    "sad" : pygame.image.load('data/sprites/countries/northAmerica/sad.png'),
+    "Head" : pygame.image.load('data/sprites/COUNTRIES/northAmerica/head.png'),
+    "happy" : pygame.image.load('data/sprites/COUNTRIES/northAmerica/happy.png'),
+    "angry" : pygame.image.load('data/sprites/COUNTRIES/northAmerica/angry.png'),
+    "sad" : pygame.image.load('data/sprites/COUNTRIES/northAmerica/sad.png'),
     "SpeechBubble" : speechbubble_var
 }
 south_america_sprites = {
-    "Head" : pygame.image.load('data/sprites/countries/southAmerica/head.png'),
-    "happy" : pygame.image.load('data/sprites/countries/southAmerica/happy.png'),
-    "angry" : pygame.image.load('data/sprites/countries/southAmerica/angry.png'),
-    "sad" : pygame.image.load('data/sprites/countries/southAmerica/sad.png'),
+    "Head" : pygame.image.load('data/sprites/COUNTRIES/southAmerica/head.png'),
+    "happy" : pygame.image.load('data/sprites/COUNTRIES/southAmerica/happy.png'),
+    "angry" : pygame.image.load('data/sprites/COUNTRIES/southAmerica/angry.png'),
+    "sad" : pygame.image.load('data/sprites/COUNTRIES/southAmerica/sad.png'),
     "SpeechBubble" : speechbubble_var
 }
 
