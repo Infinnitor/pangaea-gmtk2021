@@ -119,13 +119,15 @@ class island():
         self.sprites = sprites_dict
 
         # Variables for tracking dialogue info across multiple frames
-        self.dialogue = dialogue
         self.dialogue_index = 0
 
-        dialogue_font = pygame.font.SysFont("Helvetica", 100)
+        dialogue_font = pygame.font.SysFont(None, 50)
         self.dialogue_obj = []
+        self.dialogue_speaker = []
         for text in dialogue:
-            self.dialogue_obj.append(dialogue_font.render(text, True, (0, 0, 0)))
+            t = text.split(":")
+            self.dialogue_speaker.append(dialogue_font.render(t[0], True, (40, 40, 155)))
+            self.dialogue_obj.append(dialogue_font.render(t[1], True, (40, 40, 155)))
 
         # If space key was pressed last frame
         self.space_key_buffer = False
@@ -134,7 +136,8 @@ class island():
     def update_talk(self, game):
 
         # Display dialogue (NOT WORKING CODE LOL)
-        game.win.blit(self.dialogue_obj[self.dialogue_index], (40, game.textbox_y[0]))
+        game.win.blit(self.dialogue_speaker[self.dialogue_index], (50, game.textbox_y[0] - 40))
+        game.win.blit(self.dialogue_obj[self.dialogue_index], (50, game.textbox_y[0] + 30))
 
         # Check if space key is being pressed for the first time
         if game.keys[pygame.K_SPACE]:
@@ -241,7 +244,7 @@ class wave():
         self.sprite = sprites[length]
 
     def update_move(self, parent_chunk, game):
-        self.x += 1
+        self.x += 0.4
 
         # y_mod is set to y at a given point in a cosine wave
         self.y_mod = 10 * math.cos(self.x * 0.01)
