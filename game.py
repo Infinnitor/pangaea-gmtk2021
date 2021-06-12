@@ -484,17 +484,17 @@ class player():
         # Blit the given sprite at the position of the island
         game.win.blit(blit_sprite, (self.x, self.y + self.y_mod))
 
-def fix_path(filepath):
-    if getattr(sys, 'frozen', False):
-        PATH = os.path.dirname(sys.executable)
-        print("Problem with finding relative path")  #This is for when the program is frozen
-    else:
-        PATH = os.path.dirname(__file__) #This is when the program normally runs
 
-    print(PATH)
-    rel_path = os.path.join(PATH, filepath)
-    print(rel_path)
-    return rel_path
+def fix_path(relative_path):
+    try:
+        # PyInstaller creates a temp folder and stores path in _MEIPASS
+        base_path = sys._MEIPASS
+    except Exception:
+        base_path = os.path.abspath(".")
+
+    print(os.path.join(base_path, relative_path))
+    return os.path.join(base_path, relative_path)
+
 
 # Speechbubble sprite
 speechbubble_var = pygame.image.load(fix_path('data\\sprites\\ICONS\\SpeechBubble.png'))
@@ -565,7 +565,9 @@ xo_sprite_dict = {
 }
 
 window = pygame.display.set_mode((1000, 1000))
-window.blit(xo_sprite_dict["None"], (0, 0))
+window.blit(pangaea_sprites["Default"], (0, 0))
+pygame.display.update()
+input()
 
 # North America
 NA_script = [
