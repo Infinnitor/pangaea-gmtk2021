@@ -1,6 +1,8 @@
 from os import environ
 environ['PYGAME_HIDE_SUPPORT_PROMPT'] = "hide"
 
+import math
+
 import pygame
 pygame.init()
 
@@ -86,6 +88,10 @@ class player():
         # All sprites are initally facing right, must be flipped to turn left
         self.facing_right = True
 
+        # Making a cool wave to bob the island up and down
+        self.wave_x = 0
+        self.y_mod = 0
+
     # Function for updating movement of player
     def update_move(self, game):
         # Get the position you are before you update
@@ -127,6 +133,16 @@ class player():
             # Calls the change_chunk() function with information about current border
             game.change_chunk(on_border)
 
+        if not any((game.keys[pygame.K_UP], game.keys[pygame.K_DOWN])):
+            self.bob()
+
+    # Function for adding a small bob to the island
+    def bob(self):
+
+        # Creates a value for y_mod using a cosine wave given an x position and wavelenth + period
+        self.wave_x += 1
+        self.y_mod = 10 * math.cos(self.wave_x * 0.08)
+
     # Function for checking whether player is on a border
     def border_check(self, game): # checks which border you are on
 
@@ -157,14 +173,14 @@ class player():
 
     # Function for drawing the player character (WILL BE UPDATED TO USE A SPRITE)
     def update_draw(self, game):
-        pygame.draw.rect(game.win, (155, 40, 40), (self.x, self.y, self.width, self.height))
+        # pygame.draw.rect(game.win, (155, 40, 40), (self.x, self.y, self.width, self.height))
 
         if self.facing_right:
             blit_sprite = self.sprites[self.sprite_status]
         else:
             blit_sprite = pygame.transform.flip(self.sprites[self.sprite_status], True, False)
 
-        game.win.blit(blit_sprite, (self.x, self.y))
+        game.win.blit(blit_sprite, (self.x, self.y + self.y_mod))
 
 
 pangaea_sprites = {"Default" : pygame.image.load('data/sprites/PanDefault.png')}
