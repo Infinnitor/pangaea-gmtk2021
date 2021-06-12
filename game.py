@@ -98,8 +98,26 @@ class game_info():
         elif direction == "Down":
             self.current_chunk += 3
 
-    def run_minigame(self): # gamestate 2
-        pass
+    def minigame_init(self): # gamestate 2
+        self.game_state = 2
+        self.xo_board = [None for empty in range(9)]
+
+        sq_side = 100
+        offset_x = 500
+        offset_y = 200
+
+        self.xo_square_side = sq_side
+        self.xo_positions = []
+
+        for y in range(3):
+            for x in range(3):
+                self.xo_positions.append((x * (sq_side + sq_side // 4) + offset_x, y * (sq_side + sq_side // 4) + offset_y))
+
+    def minigame_update(self):
+        for i, square in enumerate(self.xo_board):
+            if square == None:
+                pygame.draw.rect(self.win, (40, 40, 40), (self.xo_positions[i][0],  self.xo_positions[i][1],  self.xo_square_side,  self.xo_square_side))
+
 
 # Class for islands that appear in chunks
 class island():
@@ -147,7 +165,7 @@ class island():
             game.win.blit(self.dialogue_speaker[self.dialogue_index], (80, game.textbox_y[0] + 15))
             game.win.blit(self.dialogue_obj[self.dialogue_index], (50, game.textbox_y[0] + 70))
         except IndexError:
-            game.game_state = 2 # Finishing dialogue, probs a better way of doing this lol
+            game.minigame_init() # Finishing dialogue, probs a better way of doing this lol
 
         # Check if space key is being pressed for the first time
         if game.keys[pygame.K_SPACE]:
@@ -462,7 +480,7 @@ while game.run:
 
     if game.game_state == 2:
         # minigame time
-        game.run_minigame()
+        game.minigame_update()
         pass
 
     # Check for closing of window
