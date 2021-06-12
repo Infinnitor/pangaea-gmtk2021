@@ -10,7 +10,7 @@ pygame.init()
 
 # Class for containing all relevant info about game's state
 class game_info():
-    def __init__(self, win_w, win_h, chunks, start_chunk, waves_dict, vn_sprites):
+    def __init__(self, win_w, win_h, chunks, start_chunk, waves_dict, vn_sprites, xo_sprites):
 
         # Screen size info
         self.win_w = win_w
@@ -36,10 +36,15 @@ class game_info():
         self.game_state = 0
 
         self.vn_sprites = vn_sprites
+        self.char_pos = (self.win_w - 500, 100)
+
+        self.xo_sprites = xo_sprites
 
     def update_keys(self):
         # self.keys is a list if current keys that are pressed
         self.keys = pygame.key.get_pressed()
+        self.mouse = pygame.mouse.get_pressed()
+        self.mouse_pos = pygame.mouse.get_pos()
 
         if not any([self.keys[pygame.K_SPACE], self.keys[pygame.K_UP], self.keys[pygame.K_DOWN], self.keys[pygame.K_LEFT], self.keys[pygame.K_RIGHT]]):
             self.nonepressed = True
@@ -68,6 +73,9 @@ class game_info():
 
         # Display UI elements
         self.win.blit(self.vn_sprites["Overlay"], (self.overlay_x[0], 0))
+
+        self.chunks[self.current_chunk].country.update_character(self)
+
         self.win.blit(self.vn_sprites["Textbox"], (30, self.textbox_y[0]))
 
         if self.textbox_still:
@@ -100,11 +108,12 @@ class game_info():
 
     def minigame_init(self): # gamestate 2
         self.game_state = 2
-        self.xo_board = [None for empty in range(9)]
+        self.xo_board = ["None" for empty in range(9)]
+        self.xo_turn = "X"
 
-        sq_side = 100
-        offset_x = 500
-        offset_y = 200
+        sq_side = 150
+        offset_x = 350
+        offset_y = 100
 
         self.xo_square_side = sq_side
         self.xo_positions = []
@@ -114,14 +123,38 @@ class game_info():
                 self.xo_positions.append((x * (sq_side + sq_side // 4) + offset_x, y * (sq_side + sq_side // 4) + offset_y))
 
     def minigame_update(self):
+
+        self.win.blit(self.vn_sprites["Overlay"], (self.overlay_x[0], 0))
+
+        positions = self.xo_positions
+
+        def mouse_check(pos1, pos2, mouse_pos):
+
+            if mouse_pos[0] > pos1[0] and mouse_pos[0] < pos2[0]:
+                if mouse_pos[1] > pos1[1] and mouse_pos[1] < pos2[1]:
+                    return True
+
+            return False
+
         for i, square in enumerate(self.xo_board):
-            if square == None:
-                pygame.draw.rect(self.win, (40, 40, 40), (self.xo_positions[i][0],  self.xo_positions[i][1],  self.xo_square_side,  self.xo_square_side))
+
+            self.win.blit(self.xo_sprites[square], (positions[i][0], positions[i][1]))
+
+        if self.mouse[0]:
+            for i, square in enumerate(self.xo_board):
+                if mouse_check((positions[i][0], positions[i][1]), (positions[i][0] + self.xo_square_side, positions[i][1] + self.xo_square_side), self.mouse_pos):
+
+                    if self.xo_board[i] == "None":
+                        self.xo_board[i] = self.xo_turn
+                        if self.xo_turn == "X":
+                            self.xo_turn = "O"
+                        else:
+                            self.xo_turn = "X"
 
 
 # Class for islands that appear in chunks
 class island():
-    def __init__(self, x, y, name, sprites_dict, dialogue):
+    def __init__(self, x, y, name, sprites_dict, dialogue, pangaea_sprites):
 
         # Position of island on chunk
         self.x = x
@@ -133,10 +166,11 @@ class island():
 
         # Variables for disambiguation and stuff
         self.name = name
-        self.status = "Default"
+        self.status = "Head"
 
         # Dictionary of all sprites for a given country
         self.sprites = sprites_dict
+        self.pangaea_sprites = pangaea_sprites
 
         # Variables for tracking dialogue info across multiple frames
         self.dialogue_index = 0
@@ -147,12 +181,21 @@ class island():
         # Create two lists for the speaker and text
         self.dialogue_obj = []
         self.dialogue_speaker = []
+        self.dialogue_speaker_text = []
+        self.dialogue_emotion = []
         for text in dialogue:
 
             # Split dialogue on a colon to get both the speaker and their dialogue
             t = text.split(":")
+            self.dialogue_emotion.append(t[2].replace(" ", ""))
+            self.dialogue_speaker_text.append(t[0])
             self.dialogue_speaker.append(dialogue_font.render(t[0], True, (40, 40, 155)))
-            self.dialogue_obj.append(dialogue_font.render(t[1], True, (40, 40, 155)))
+
+            dialogue_text = t[1].split("|")
+            label = []
+            for line in dialogue_text:
+                label.append(dialogue_font.render(line, True, (0, 0, 0)))
+            self.dialogue_obj.append(label) # list of lines in that dialogue
 
         # If space key was pressed last frame
         self.space_key_buffer = False
@@ -163,7 +206,10 @@ class island():
         # Display dialogue
         try:
             game.win.blit(self.dialogue_speaker[self.dialogue_index], (80, game.textbox_y[0] + 15))
-            game.win.blit(self.dialogue_obj[self.dialogue_index], (50, game.textbox_y[0] + 70))
+
+            for i, line in enumerate(self.dialogue_obj[self.dialogue_index]):
+                game.win.blit(line, (50, game.textbox_y[0] + 70 + (50*i)))
+
         except IndexError:
             game.minigame_init() # Finishing dialogue, probs a better way of doing this lol
 
@@ -183,6 +229,15 @@ class island():
 
         if game.keys[pygame.K_SPACE] and game.game_state == 0:
             game.VN_init()
+
+    def update_character(self, game):
+        try:
+            if self.dialogue_speaker_text[self.dialogue_index] == "PANGAEA":
+                game.win.blit(self.pangaea_sprites[self.dialogue_emotion[self.dialogue_index]], game.char_pos)
+            else:
+                game.win.blit(self.sprites[self.dialogue_emotion[self.dialogue_index]], game.char_pos)
+        except IndexError:
+            pass
 
     # Update draw
     def update_draw(self, game):
@@ -306,9 +361,6 @@ class player():
         self.sprites = sprites_dict
         self.sprite_status = "Default"
 
-        # All sprites are initally facing right, must be flipped to turn left
-        self.facing_right = True
-
         self.blinking = [False, 0]
 
         # Making a cool wave to bob the island up and down
@@ -403,36 +455,86 @@ class player():
         # pygame.draw.rect(game.win, (155, 40, 40), (self.x, self.y, self.width, self.height))
 
         # If the sprite is facing right then it does not need to be flipped
-        if self.facing_right:
-            blit_sprite = self.sprites[self.sprite_status]
-
-        # Otherwise it should be flipped to face left
-        else:
-            blit_sprite = pygame.transform.flip(self.sprites[self.sprite_status], True, False)
+        blit_sprite = self.sprites[self.sprite_status]
 
         # Blit the given sprite at the position of the island
         game.win.blit(blit_sprite, (self.x, self.y + self.y_mod))
 
 
+speechbubble_var = pygame.image.load('data/sprites/ICONS/SpeechBubble.png')
+
 pangaea_sprites = {
-    "Default" : pygame.image.load('data/sprites/PanDefault.png'),
-    }
+    "Default" : pygame.image.load('data/sprites/countries/pangea/head.png'),
+    "Head" : pygame.image.load('data/sprites/countries/pangea/head.png'),
+    "happy" : pygame.image.load('data/sprites/countries/pangea/happy.png'),
+    "angry" : pygame.image.load('data/sprites/countries/pangea/angry.png'),
+    "sad" : pygame.image.load('data/sprites/countries/pangea/sad.png'),
+    "SpeechBubble" : speechbubble_var
+}
+africa_sprites = {
+    "Head" : pygame.image.load('data/sprites/countries/africa/head.png'),
+    "happy" : pygame.image.load('data/sprites/countries/africa/happy.png'),
+    "angry" : pygame.image.load('data/sprites/countries/africa/angry.png'),
+    "sad" : pygame.image.load('data/sprites/countries/africa/sad.png'),
+    "SpeechBubble" : speechbubble_var
+}
+australia_sprites = {
+    "Head" : pygame.image.load('data/sprites/countries/australia/head.png'),
+    "happy" : pygame.image.load('data/sprites/countries/australia/happy.png'),
+    "angry" : pygame.image.load('data/sprites/countries/australia/angry.png'),
+    "sad" : pygame.image.load('data/sprites/countries/australia/sad.png'),
+    "SpeechBubble" : speechbubble_var
+}
+euraisa_sprites = {
+    "Head" : pygame.image.load('data/sprites/countries/euraisa/head.png'),
+    "happy" : pygame.image.load('data/sprites/countries/euraisa/happy.png'),
+    "angry" : pygame.image.load('data/sprites/countries/euraisa/angry.png'),
+    "sad" : pygame.image.load('data/sprites/countries/euraisa/sad.png'),
+    "SpeechBubble" : speechbubble_var
+}
+india_sprites = {
+    "Head" : pygame.image.load('data/sprites/countries/india/head.png'),
+    "happy" : pygame.image.load('data/sprites/countries/india/happy.png'),
+    "angry" : pygame.image.load('data/sprites/countries/india/angry.png'),
+    "sad" : pygame.image.load('data/sprites/countries/india/sad.png'),
+    "SpeechBubble" : speechbubble_var
+}
+north_america_sprites = {
+    "Head" : pygame.image.load('data/sprites/countries/northAmerica/head.png'),
+    "happy" : pygame.image.load('data/sprites/countries/northAmerica/happy.png'),
+    "angry" : pygame.image.load('data/sprites/countries/northAmerica/angry.png'),
+    "sad" : pygame.image.load('data/sprites/countries/northAmerica/sad.png'),
+    "SpeechBubble" : speechbubble_var
+}
+south_america_sprites = {
+    "Head" : pygame.image.load('data/sprites/countries/southAmerica/head.png'),
+    "happy" : pygame.image.load('data/sprites/countries/southAmerica/happy.png'),
+    "angry" : pygame.image.load('data/sprites/countries/southAmerica/angry.png'),
+    "sad" : pygame.image.load('data/sprites/countries/southAmerica/sad.png'),
+    "SpeechBubble" : speechbubble_var
+}
 
 wave_sprites = {
     "Short" : pygame.image.load('data/sprites/WaveShort.png'),
     "Medium" : pygame.image.load('data/sprites/WaveMedium.png'),
-    "Long" : pygame.image.load('data/sprites/WaveLong.png')
+    "Long" : pygame.image.load('data/sprites/WaveLong.png'),
 }
 
-britain_file = open("data/scripts/britain.txt", "r").readlines()
-britain_script = [i.replace("\n", "") for i in britain_file]
+xo_sprite_dict = {
+    "None" : pygame.image.load("data/sprites/ICONS/empty.png"),
+    "X" : pygame.image.load("data/sprites/ICONS/x.png"),
+    "O" : pygame.image.load("data/sprites/ICONS/o.png"),
+}
 
-britan = island(x=200, y=150, name="BRITAIN", sprites_dict={"Default" : pangaea_sprites["Default"], "SpeechBubble" : pygame.image.load('data/sprites/ICONS/SpeechBubble.png')}, dialogue=britain_script)
+text_file = open("data/scripts/northAmerica.txt", "r").readlines()
+NA_script = [i.replace("\n", "") for i in text_file]
+
+north_america = island(x=200, y=150, name="NORTH AMERICA", sprites_dict=north_america_sprites, dialogue=NA_script, pangaea_sprites=pangaea_sprites)
 
 # List of chunks generated when they are instantiated
 local_chunks = [
     map_chunk(index=0, name="Top-Left", country=None, borders_dict={"Left" : False, "Right" : True, "Up" : False, "Down" : True}, bg=(0, 155, 100)),
-    map_chunk(index=1, name="Top-Middle", country=britan, borders_dict={"Left": True, "Right": True, "Up": False, "Down": True}, bg=(183, 107, 103)),
+    map_chunk(index=1, name="Top-Middle", country=north_america, borders_dict={"Left": True, "Right": True, "Up": False, "Down": True}, bg=(183, 107, 103)),
     map_chunk(index=2, name="Top-Right", country=None, borders_dict={"Left" : True, "Right" : False, "Up" : False, "Down" : True}, bg=(98, 62, 238)),
     map_chunk(index=3, name="Middle-Left", country=None, borders_dict={"Left" : False, "Right" : True, "Up" : True, "Down" : True}, bg=(255, 218, 110)),
     map_chunk(index=4, name="Middle-Middle", country=None, borders_dict={"Left": True, "Right": True, "Up": True, "Down": True}, bg=(58, 135, 189)),
@@ -448,7 +550,7 @@ vn_sprites_dict = {
     }
 
 # Instantiate object for storing game info
-game = game_info(win_w=1280, win_h=720, chunks=local_chunks, start_chunk=4, waves_dict=wave_sprites, vn_sprites=vn_sprites_dict)
+game = game_info(win_w=1280, win_h=720, chunks=local_chunks, start_chunk=4, waves_dict=wave_sprites, vn_sprites=vn_sprites_dict, xo_sprites=xo_sprite_dict)
 
 # Instantiate player object
 pangea = player(start_x=600, start_y=400, speed=5, start_width=150, start_height=100, sprites_dict=pangaea_sprites)

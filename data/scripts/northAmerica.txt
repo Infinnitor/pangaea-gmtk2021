@@ -1,0 +1,18 @@
+PANGAEA: Hey, North America! : happy
+NORTH AMERICA: Ay, Pangy my Mangy! What is going on? : happy
+PANGAEA: Oh, you know, just the usual. : sad
+PANGAEA: Hey, actually, it just occurred to me, |I had this little tiny idea that maybe you might wanna hear? : happy
+NORTH AMERICA : Fire away, my dude. : happy
+PANGAEA: Well, I was thinking maybe you, and me, |and all of the other continents could kind of come together - : happy
+NORTH AMERICA: Oh, to have like a party or something? : happy
+PANGAEA: No, not quite. I was thinking something a little more... permanent. |Like, living together permanently. : sad
+NORTH AMERICA: Oh, I don't know about that, man. |I can't see myself lasting more than two-hundred and seventy years |with that stuck-up Eurasia. : angry
+NORTH AMERICA: They're so far up their oceanic ridge, you know what I mean? : angry
+PANGAEA: Well, I don't think they're gonna be involved... |look, could you please just consider?  : sad
+PANGAEA: I think it would be a really good way to get to |know each other and really feel like we're part of a family! : sad
+NORTH AMERICA: ...Well, I can't deny your passion... : sad
+NORTH AMERICA: are you a gambler, Pangy? : happy
+PANGAEA: Uh... : sad
+NORTH AMERICA: 'Cause I'm thinking this- we play a little game of exes and ohs, |and if you win, I'll join your little country club. If I win... : happy
+PANGAEA: ... : sad
+NORTH AMERICA: ...You know what, let's just play. : sad
