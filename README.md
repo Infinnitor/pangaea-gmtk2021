@@ -12,6 +12,7 @@ island that wants to be a continent
 - diplomacy minigame
 - joining together minigame
 - player gets slower as more landmass is added
+- could be collectibles in the ocean that would be small areas of land that you could add to yourself, just for the craic
 
 
 # Joined together
