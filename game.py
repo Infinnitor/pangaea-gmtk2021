@@ -564,11 +564,6 @@ xo_sprite_dict = {
     "O" : pygame.image.load(fix_path("data\\sprites\\ICONS\\o.png")),
 }
 
-window = pygame.display.set_mode((1000, 1000))
-window.blit(pangaea_sprites["Default"], (0, 0))
-pygame.display.update()
-input()
-
 # North America
 NA_script = [
 
