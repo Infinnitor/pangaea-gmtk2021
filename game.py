@@ -67,22 +67,31 @@ class map_chunk(): # "Room" or "Chunk" where each country will be in
 
     # Function for drawing the current chunk
     def update_draw(self, game):
+
+        # Create a list of waves if the player has just moved to this chunk
         if not self.onscreen:
+
+            self.waves_num = random.randint(19, 30)
+
             self.waves_obj = []
-            for w in range(20):
+            for w in range(self.waves_num):
                 self.make_wave(x=random.randint(0, game.win_w), game=game)
 
             self.onscreen = True
 
+        # Fill the background with blue
         game.win.fill(self.bg)
 
-        if len(self.waves_obj) < 20:
+        # If a wave is missing replace it
+        if len(self.waves_obj) < self.waves_num:
             self.make_wave(x=-20, game=game)
 
+        # Update all waves
         for w in self.waves_obj:
             w.update_move(self, game)
             w.update_draw(game)
 
+    # Function for making waves
     def make_wave(self, x, game):
         self.waves_obj.append(wave(
             start_x=x,
@@ -91,23 +100,31 @@ class map_chunk(): # "Room" or "Chunk" where each country will be in
             sprites=game.waves_sprites))
 
 
+# Wave class
 class wave():
     def __init__(self, start_x, start_y, length, sprites):
+
+        # Position
         self.x = start_x
         self.y = start_y
 
+        # Modifier to the Y of where it is drawn
         self.y_mod = 0
 
+        # Sprite to use, based on length of the wave
         self.sprite = sprites[length]
 
     def update_move(self, parent_chunk, game):
         self.x += 1
 
-        self.y_mod = 4 * math.cos(self.x) * 0.25
+        # y_mod is set to y at a given point in a cosine wave
+        self.y_mod = 10 * math.cos(self.x * 0.01)
 
+        # If offscreen, delete
         if self.x > game.win_w:
             parent_chunk.waves_obj.remove(self)
 
+    # Draw with given sprite
     def update_draw(self, game):
         game.win.blit(self.sprite, (self.x, self.y + self.y_mod))
 
