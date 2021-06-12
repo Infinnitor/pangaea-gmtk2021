@@ -53,10 +53,20 @@ class game_info():
         else:
             self.overlay_x[0] = 0
 
+        if self.textbox_y[0] < self.win_h - 300:
+            self.textbox_y[0] += self.textbox_y[1]
+            self.textbox_y[1] += 1
+        else:
+            self.textbox_y[0] = self.win_h - 300
+
         self.win.blit(self.vn_sprites["Overlay"], (self.overlay_x[0], 0))
+        self.win.blit(self.vn_sprites["Textbox"], (100, self.textbox_y[0]))
+
 
     def VN_init(self):
         self.overlay_x = [0 - self.vn_sprites["Overlay"].get_size()[0], 15]
+        self.textbox_y = [self.win_h, 15]
+
         self.game_state = 1
 
     # Function called by player when current chunk needs to be changed
