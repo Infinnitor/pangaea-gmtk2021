@@ -190,7 +190,7 @@ class island():
         self.dialogue_index = 0
 
         # THE font
-        dialogue_font = pygame.font.Font(fix_path("data\\Roboto-Bold.ttf"), 50)
+        dialogue_font = pygame.font.Font(fix_path("data\\Roboto.ttf"), 50)
 
         # Create two lists for the speaker and text
         self.dialogue_obj = []
