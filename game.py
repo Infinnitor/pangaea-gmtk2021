@@ -8,21 +8,28 @@ import pygame
 pygame.init()
 
 
-class game_info(): # main game class
+# Class for containing all relevant info about game's state
+class game_info():
     def __init__(self, win_w, win_h, chunks, start_chunk, waves_dict):
 
+        # Screen size info
         self.win_w = win_w
         self.win_h = win_h
 
+        # Instantiating window
         self.win = pygame.display.set_mode((win_w, win_h))
         pygame.display.set_caption("Pangaea's wacky camera adventure") # epic
 
+        # List of all chunk objects
         self.chunks = chunks
 
+        # Chunk that player is currently on
         self.current_chunk = start_chunk
 
+        # Bool to run mainloop
         self.run = True
 
+        # Sprites to use for waves
         self.waves_sprites = waves_dict
 
     def update_keys(self):
