@@ -46,26 +46,39 @@ class game_info():
         else:
             self.nonepressed = False
 
+    # Function for updating various aspects of the UI
     def update_VNUI(self):
+
+        # Smooth movment of overlay
         if self.overlay_x[0] < -500:
             self.overlay_x[0] += self.overlay_x[1]
             self.overlay_x[1] += 1
         else:
             self.overlay_x[0] = 0
 
-        if self.textbox_y[0] > self.win_h - 250:
-            self.textbox_y[0] -= self.textbox_y[1]
-            self.textbox_y[1] += 1
-        else:
-            self.textbox_y[0] = self.win_h - 250
+        # If the textbox has not reached its destination
+        if not self.textbox_still:
+            # Smooth movment of textbox
+            if self.textbox_y[0] > self.win_h - 250:
+                self.textbox_y[0] -= self.textbox_y[1]
+                self.textbox_y[1] += 0.5
+            else:
+                self.textbox_y[0] = self.win_h - 250
+                self.textbox_still = True
 
+        # Display UI elements
         self.win.blit(self.vn_sprites["Overlay"], (self.overlay_x[0], 0))
         self.win.blit(self.vn_sprites["Textbox"], (30, self.textbox_y[0]))
 
+        if self.textbox_still:
+            self.chunks[self.current_chunk].country.update_talk(self)
 
+    # Function for initialising overlay and changing game state
     def VN_init(self):
         self.overlay_x = [0 - self.vn_sprites["Overlay"].get_size()[0], 15]
-        self.textbox_y = [self.win_h, 10]
+
+        self.textbox_y = [self.win_h, 5]
+        self.textbox_still = False
 
         self.game_state = 1
 
@@ -109,6 +122,11 @@ class island():
         self.dialogue = dialogue
         self.dialogue_index = 0
 
+        dialogue_font = pygame.font.SysFont("Helvetica", 100)
+        self.dialogue_obj = []
+        for text in dialogue:
+            self.dialogue_obj.append(dialogue_font.render(text, True, (0, 0, 0)))
+
         # If space key was pressed last frame
         self.space_key_buffer = False
 
@@ -116,7 +134,7 @@ class island():
     def update_talk(self, game):
 
         # Display dialogue (NOT WORKING CODE LOL)
-        game.win.blit(self.dialogue[self.dialogue_index])
+        game.win.blit(self.dialogue_obj[self.dialogue_index], (40, game.textbox_y[0]))
 
         # Check if space key is being pressed for the first time
         if game.keys[pygame.K_SPACE]:
@@ -271,20 +289,21 @@ class player():
         self.old_x = self.x
         self.old_y = self.y
 
-        # Move player based on what keys are down
-        if game.keys[pygame.K_LEFT]:
-            self.x -= self.speed
-            self.facing_right = False
+        if game.game_state == 0:
+            # Move player based on what keys are down
+            if game.keys[pygame.K_LEFT]:
+                self.x -= self.speed
+                self.facing_right = False
 
-        elif game.keys[pygame.K_RIGHT]:
-            self.x += self.speed
-            self.facing_right = True
+            elif game.keys[pygame.K_RIGHT]:
+                self.x += self.speed
+                self.facing_right = True
 
-        if game.keys[pygame.K_UP]:
-            self.y -= self.speed
+            if game.keys[pygame.K_UP]:
+                self.y -= self.speed
 
-        elif game.keys[pygame.K_DOWN]:
-            self.y += self.speed
+            elif game.keys[pygame.K_DOWN]:
+                self.y += self.speed
 
         on_border = self.border_check(game) # Is false if not on border
 
@@ -326,7 +345,7 @@ class player():
         if not self.blinking[0]:
 
             # 2% chance to blink
-            if random.randint(0, 100) <= 2:
+            if random.randint(0, 500) <= 2:
                 self.blinking[0] = True
 
         # If already blinking, decide which blinking frame to display
@@ -406,7 +425,10 @@ wave_sprites = {
     "Long" : pygame.image.load('data/sprites/WaveLong.png')
 }
 
-britan = island(x=200, y=150, name="Bri'an", sprites_dict={"Default" : pangaea_sprites["Default"], "SpeechBubble" : pygame.image.load('data/sprites/ICONS/SpeechBubble.png')}, dialogue="shark's tale SUCKS")
+britain_file = open("data/scripts/britain.txt", "r").readlines()
+britain_script = [i.replace("\n", "") for i in britain_file]
+
+britan = island(x=200, y=150, name="BRITAIN", sprites_dict={"Default" : pangaea_sprites["Default"], "SpeechBubble" : pygame.image.load('data/sprites/ICONS/SpeechBubble.png')}, dialogue=britain_script)
 
 # List of chunks generated when they are instantiated
 local_chunks = [
@@ -439,8 +461,6 @@ clock = pygame.time.Clock()
 while game.run:
     clock.tick(60)
 
-    #game.win.blit(overlay, (0, 0))
-
     # Update pygame display and delete everything
     pygame.display.update()
     game.win.fill((0, 0, 0))
@@ -452,8 +472,7 @@ while game.run:
     game.chunks[game.current_chunk].update_draw(game)
 
     # Update the player character's movement and draw them
-    if game.game_state == 0: # Can only move while in exploration mode
-        pangea.update_move(game)
+    pangea.update_move(game)
     pangea.update_draw(game)
 
     if game.game_state == 1:
