@@ -15,6 +15,13 @@ island that wants to be a continent
 - [ ] could be collectibles in the ocean that would be small areas of land that you could add to yourself, just for the craic
 - [x] exes and ohs (by elle king)
 
+# Things to do
+- win / lose at x and os
+- have countries join together when you win
+- start menu
+- start prologue
+- ending
+- export
 
 # Joined together
 
