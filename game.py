@@ -319,7 +319,7 @@ local_chunks = [
 ]
 
 # Instantiate object for storing game info
-game = game_info(win_w=1280, win_h=720, chunks=local_chunks, start_chunk=1, waves_dict=wave_sprites)
+game = game_info(win_w=1280, win_h=720, chunks=local_chunks, start_chunk=4, waves_dict=wave_sprites)
 
 # Instantiate player object
 pangea = player(start_x=600, start_y=400, speed=5, start_width=150, start_height=100, sprites_dict=pangaea_sprites)
