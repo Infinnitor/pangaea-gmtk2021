@@ -492,8 +492,14 @@ def fix_path(relative_path):
     except Exception:
         base_path = os.path.abspath(".")
 
-    print(os.path.join(base_path, relative_path))
-    return os.path.join(base_path, relative_path)
+    abs_path = os.path.join(base_path, relative_path)
+
+    if sys.platform == "linux":
+        print(True)
+        abs_path = abs_path.replace("\\", "/")
+
+    print(abs_path)
+    return abs_path
 
 
 # Speechbubble sprite
