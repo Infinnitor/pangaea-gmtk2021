@@ -47,7 +47,17 @@ class game_info():
             self.nonepressed = False
 
     def update_VNUI(self):
-        self.win.blit(self.vn_sprites["Overlay"])
+        if self.overlay_x[0] < -500:
+            self.overlay_x[0] += self.overlay_x[1]
+            self.overlay_x[1] += 1
+        else:
+            self.overlay_x[0] = 0
+
+        self.win.blit(self.vn_sprites["Overlay"], (self.overlay_x[0], 0))
+
+    def VN_init(self):
+        self.overlay_x = [0 - self.vn_sprites["Overlay"].get_size()[0], 15]
+        self.game_state = 1
 
     # Function called by player when current chunk needs to be changed
     def change_chunk(self, direction):
@@ -108,10 +118,18 @@ class island():
         else:
             self.space_key_buffer = False
 
+    def update_move(self, game):
+        self.bob()
+
+        if game.keys[pygame.K_SPACE] and game.game_state == 0:
+            game.VN_init()
+
     # Update draw
     def update_draw(self, game):
-        self.bob()
         game.win.blit(self.sprites[self.status], (self.x, self.y + self.y_mod))
+
+        image_width = self.sprites[self.status].get_size()[0]
+        game.win.blit(self.sprites["SpeechBubble"], (self.x + image_width, self.y - (self.y // 3) + self.y_mod))
 
     # Function for adding a small bob to the island
     def bob(self):
@@ -168,6 +186,7 @@ class map_chunk():
             w.update_draw(game)
 
         if self.country != None:
+            self.country.update_move(game)
             self.country.update_draw(game)
 
     # Function for making waves
@@ -377,7 +396,7 @@ wave_sprites = {
     "Long" : pygame.image.load('data/sprites/WaveLong.png')
 }
 
-britan = island(x=200, y=150, name="Bri'an", sprites_dict={"Default" : pangaea_sprites["Default"]}, dialogue="shark's tale SUCKS")
+britan = island(x=200, y=150, name="Bri'an", sprites_dict={"Default" : pangaea_sprites["Default"], "SpeechBubble" : pygame.image.load('data/sprites/ICONS/SpeechBubble.png')}, dialogue="shark's tale SUCKS")
 
 # List of chunks generated when they are instantiated
 local_chunks = [
@@ -426,7 +445,7 @@ while game.run:
 
     if game.game_state == 1:
         # VN TIME
-        game.display_VNUI()
+        game.update_VNUI()
 
     # Check for closing of widow
     for event in pygame.event.get():
