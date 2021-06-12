@@ -529,19 +529,40 @@ xo_sprite_dict = {
 text_file = open("data/scripts/northAmerica.txt", "r").readlines()
 NA_script = [i.replace("\n", "") for i in text_file]
 
+text_file = open("data/scripts/southAmerica.txt", "r").readlines()
+SA_script = [i.replace("\n", "") for i in text_file]
+
+text_file = open("data/scripts/india.txt", "r").readlines()
+india_script = [i.replace("\n", "") for i in text_file]
+
+text_file = open("data/scripts/euraisa1.txt", "r").readlines()
+euraisa1_script = [i.replace("\n", "") for i in text_file]
+text_file = open("data/scripts/euraisa2.txt", "r").readlines()
+euraisa2_script = [i.replace("\n", "") for i in text_file]
+
+text_file = open("data/scripts/australia.txt", "r").readlines()
+australia_script = [i.replace("\n", "") for i in text_file]
+
+text_file = open("data/scripts/africa.txt", "r").readlines()
+africa_script = [i.replace("\n", "") for i in text_file]
+
 north_america = island(x=200, y=150, name="NORTH AMERICA", sprites_dict=north_america_sprites, dialogue=NA_script, pangaea_sprites=pangaea_sprites)
+south_america = island(x=200, y=150, name="SOUTH AMERICA", sprites_dict=south_america_sprites, dialogue=SA_script, pangaea_sprites=pangaea_sprites)
+africa = island(x=800, y=300, name="AFRICA", sprites_dict=africa_script, dialogue=africa_script, pangaea_sprites=pangaea_sprites)
+india = island(x=800, y=300, name="INDIA", sprites_dict=india_sprites, dialogue=india_script, pangaea_sprites=pangaea_sprites)
+australia = island(x=500, y=300, name="AUSTRALIA", sprites_dict=australia_sprites, dialogue=australia_script, pangaea_sprites=pangaea_sprites)
 
 # List of chunks generated when they are instantiated
 local_chunks = [
-    map_chunk(index=0, name="Top-Left", country=None, borders_dict={"Left" : False, "Right" : True, "Up" : False, "Down" : True}, bg=(0, 155, 100)),
+    map_chunk(index=0, name="Top-Left", country=south_america, borders_dict={"Left" : False, "Right" : True, "Up" : False, "Down" : True}, bg=(0, 155, 100)),
     map_chunk(index=1, name="Top-Middle", country=north_america, borders_dict={"Left": True, "Right": True, "Up": False, "Down": True}, bg=(183, 107, 103)),
     map_chunk(index=2, name="Top-Right", country=None, borders_dict={"Left" : True, "Right" : False, "Up" : False, "Down" : True}, bg=(98, 62, 238)),
     map_chunk(index=3, name="Middle-Left", country=None, borders_dict={"Left" : False, "Right" : True, "Up" : True, "Down" : True}, bg=(255, 218, 110)),
     map_chunk(index=4, name="Middle-Middle", country=None, borders_dict={"Left": True, "Right": True, "Up": True, "Down": True}, bg=(58, 135, 189)),
-    map_chunk(index=5, name="Middle-Right", country=None, borders_dict={"Left" : True, "Right" : False, "Up" : True, "Down" : True}, bg=(43, 59, 65)),
+    map_chunk(index=5, name="Middle-Right", country=africa, borders_dict={"Left" : True, "Right" : False, "Up" : True, "Down" : True}, bg=(43, 59, 65)),
     map_chunk(index=6, name="Bottom-Left", country=None, borders_dict={"Left" : False, "Right" : True, "Up" : True, "Down" : False}, bg=(0, 155, 100)),
-    map_chunk(index=7, name="Bottom-Middle", country=None, borders_dict={"Left": True, "Right": True, "Up": True, "Down": False}, bg=(121, 83, 69)),
-    map_chunk(index=8, name="Bottom-Right", country=None, borders_dict={"Left" : True, "Right" : False, "Up" : True, "Down" : False}, bg=(140, 0, 219))
+    map_chunk(index=7, name="Bottom-Middle", country=india, borders_dict={"Left": True, "Right": True, "Up": True, "Down": False}, bg=(121, 83, 69)),
+    map_chunk(index=8, name="Bottom-Right", country=australia, borders_dict={"Left" : True, "Right" : False, "Up" : True, "Down" : False}, bg=(140, 0, 219))
 ]
 
 vn_sprites_dict = {
