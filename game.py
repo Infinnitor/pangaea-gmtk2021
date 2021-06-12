@@ -98,6 +98,8 @@ class game_info():
         elif direction == "Down":
             self.current_chunk += 3
 
+    def run_minigame(self): # gamestate 2
+        pass
 
 # Class for islands that appear in chunks
 class island():
@@ -140,9 +142,12 @@ class island():
     # Function for updating dialogue on VNUI
     def update_talk(self, game):
 
-        # Display dialogue (NOT WORKING CODE LOL)
-        game.win.blit(self.dialogue_speaker[self.dialogue_index], (80, game.textbox_y[0] + 15))
-        game.win.blit(self.dialogue_obj[self.dialogue_index], (50, game.textbox_y[0] + 70))
+        # Display dialogue
+        try:
+            game.win.blit(self.dialogue_speaker[self.dialogue_index], (80, game.textbox_y[0] + 15))
+            game.win.blit(self.dialogue_obj[self.dialogue_index], (50, game.textbox_y[0] + 70))
+        except IndexError:
+            game.game_state = 2 # Finishing dialogue, probs a better way of doing this lol
 
         # Check if space key is being pressed for the first time
         if game.keys[pygame.K_SPACE]:
@@ -338,43 +343,12 @@ class player():
         if not any((game.keys[pygame.K_UP], game.keys[pygame.K_DOWN])):
             self.bob()
 
-        self.blink()
-
     # Function for adding a small bob to the island
     def bob(self):
 
         # Creates a value for y_mod using a cosine wave given an x position and wavelenth + period
         self.wave_x += 1
         self.y_mod = 10 * math.cos(self.wave_x * 0.08)
-
-    # Function for adding random blinking to the island
-    def blink(self):
-
-        # If not already blinking, then decide whether or not to
-        if not self.blinking[0]:
-
-            # 2% chance to blink
-            if random.randint(0, 500) <= 2:
-                self.blinking[0] = True
-
-        # If already blinking, decide which blinking frame to display
-        else:
-            self.blinking[1] += 1
-
-            # Timeline of frames played in animation
-            blink_frames = ("Blink1", "Blink1", "Blink2", "Blink2", "Blink1", "Blink1")
-
-            # If animation time is longer than animation length, reset blinking information
-            if self.blinking[1] > len(blink_frames):
-
-                self.blinking[0] = False
-                self.blinking[1] = 0
-                self.sprite_status = "Default"
-
-                return
-
-            # Status is equal to the given frame in the animation
-            self.sprite_status = blink_frames[self.blinking[1] - 1]
 
     # Function for checking whether player is on a border
     def border_check(self, game):
@@ -424,8 +398,6 @@ class player():
 
 pangaea_sprites = {
     "Default" : pygame.image.load('data/sprites/PanDefault.png'),
-    "Blink1" : pygame.image.load('data/sprites/PanBlink1.png'),
-    "Blink2" : pygame.image.load('data/sprites/PanBlink2.png'),
     }
 
 wave_sprites = {
@@ -488,7 +460,12 @@ while game.run:
         # VN TIME
         game.update_VNUI()
 
-    # Check for closing of widow
+    if game.game_state == 2:
+        # minigame time
+        game.run_minigame()
+        pass
+
+    # Check for closing of window
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             game.run = False
