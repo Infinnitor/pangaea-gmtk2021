@@ -10,7 +10,7 @@ pygame.init()
 
 # Class for containing all relevant info about game's state
 class game_info():
-    def __init__(self, win_w, win_h, chunks, start_chunk, waves_dict):
+    def __init__(self, win_w, win_h, chunks, start_chunk, waves_dict, vn_sprites):
 
         # Screen size info
         self.win_w = win_w
@@ -35,6 +35,8 @@ class game_info():
         # Game state, 0 - exploration, 1 - VN, 2 - minigame
         self.game_state = 0
 
+        self.vn_sprites = vn_sprites
+
     def update_keys(self):
         # self.keys is a list if current keys that are pressed
         self.keys = pygame.key.get_pressed()
@@ -43,6 +45,9 @@ class game_info():
             self.nonepressed = True
         else:
             self.nonepressed = False
+
+    def update_VNUI(self):
+        self.win.blit(self.vn_sprites["Overlay"])
 
     # Function called by player when current chunk needs to be changed
     def change_chunk(self, direction):
@@ -65,25 +70,35 @@ class game_info():
 class island():
     def __init__(self, x, y, name, sprites_dict, dialogue):
 
+        # Position of island on chunk
         self.x = x
         self.y = y
 
+        # Variables for adding bobbing
         self.wave_x = 0
         self.y_mod = 0
 
+        # Variables for disambiguation and stuff
         self.name = name
         self.status = "Default"
 
+        # Dictionary of all sprites for a given country
         self.sprites = sprites_dict
+
+        # Variables for tracking dialogue info across multiple frames
         self.dialogue = dialogue
         self.dialogue_index = 0
 
+        # If space key was pressed last frame
         self.space_key_buffer = False
 
+    # Function for updating dialogue on VNUI
     def update_talk(self, game):
 
+        # Display dialogue (NOT WORKING CODE LOL)
         game.win.blit(self.dialogue[self.dialogue_index])
 
+        # Check if space key is being pressed for the first time
         if game.keys[pygame.K_SPACE]:
             if not self.space_key_buffer:
                 self.space_key_buffer = True
@@ -93,6 +108,7 @@ class island():
         else:
             self.space_key_buffer = False
 
+    # Update draw
     def update_draw(self, game):
         self.bob()
         game.win.blit(self.sprites[self.status], (self.x, self.y + self.y_mod))
@@ -105,8 +121,8 @@ class island():
         self.y_mod = 10 * math.cos(self.wave_x * 0.08)
 
 
-
-class map_chunk(): # "Room" or "Chunk" where each country will be in
+# "Room" or "Chunk" where each country will be in
+class map_chunk():
     def __init__(self, index, name, country, borders_dict, bg):
 
         # Where the chunk appears in the game.chunks list, might be used for validation
@@ -376,8 +392,10 @@ local_chunks = [
     map_chunk(index=8, name="Bottom-Right", country=None, borders_dict={"Left" : True, "Right" : False, "Up" : True, "Down" : False}, bg=(140, 0, 219))
 ]
 
+vn_sprites_dict = {"Overlay" : pygame.image.load('data/sprites/VNUI/purpleoverlay.png')}
+
 # Instantiate object for storing game info
-game = game_info(win_w=1280, win_h=720, chunks=local_chunks, start_chunk=4, waves_dict=wave_sprites)
+game = game_info(win_w=1280, win_h=720, chunks=local_chunks, start_chunk=4, waves_dict=wave_sprites, vn_sprites=vn_sprites_dict)
 
 # Instantiate player object
 pangea = player(start_x=600, start_y=400, speed=5, start_width=150, start_height=100, sprites_dict=pangaea_sprites)
@@ -388,6 +406,8 @@ clock = pygame.time.Clock()
 # Mainloop
 while game.run:
     clock.tick(60)
+
+    #game.win.blit(overlay, (0, 0))
 
     # Update pygame display and delete everything
     pygame.display.update()
