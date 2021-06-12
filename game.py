@@ -194,13 +194,13 @@ class player():
                 self.x = game.win_w - (self.width // 2)
 
             elif on_border == "Right":
-                self.x = self.width // 2
+                self.x = 0
 
             elif on_border == "Up":
                 self.y = game.win_h - (self.height // 2)
 
             elif on_border == "Down":
-                self.y = self.height // 2
+                self.y = 0
 
             # Calls the change_chunk() function with information about current border
             game.change_chunk(on_border)
