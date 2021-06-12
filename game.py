@@ -53,19 +53,19 @@ class game_info():
         else:
             self.overlay_x[0] = 0
 
-        if self.textbox_y[0] < self.win_h - 300:
-            self.textbox_y[0] += self.textbox_y[1]
+        if self.textbox_y[0] > self.win_h - 250:
+            self.textbox_y[0] -= self.textbox_y[1]
             self.textbox_y[1] += 1
         else:
-            self.textbox_y[0] = self.win_h - 300
+            self.textbox_y[0] = self.win_h - 250
 
         self.win.blit(self.vn_sprites["Overlay"], (self.overlay_x[0], 0))
-        self.win.blit(self.vn_sprites["Textbox"], (100, self.textbox_y[0]))
+        self.win.blit(self.vn_sprites["Textbox"], (30, self.textbox_y[0]))
 
 
     def VN_init(self):
         self.overlay_x = [0 - self.vn_sprites["Overlay"].get_size()[0], 15]
-        self.textbox_y = [self.win_h, 15]
+        self.textbox_y = [self.win_h, 10]
 
         self.game_state = 1
 
@@ -421,7 +421,10 @@ local_chunks = [
     map_chunk(index=8, name="Bottom-Right", country=None, borders_dict={"Left" : True, "Right" : False, "Up" : True, "Down" : False}, bg=(140, 0, 219))
 ]
 
-vn_sprites_dict = {"Overlay" : pygame.image.load('data/sprites/VNUI/purpleoverlay.png')}
+vn_sprites_dict = {
+    "Overlay" : pygame.image.load('data/sprites/VNUI/purpleoverlay.png'),
+    "Textbox" : pygame.image.load('data/sprites/VNUI/DialogueBox.png')
+    }
 
 # Instantiate object for storing game info
 game = game_info(win_w=1280, win_h=720, chunks=local_chunks, start_chunk=4, waves_dict=wave_sprites, vn_sprites=vn_sprites_dict)
