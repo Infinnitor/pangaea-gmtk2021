@@ -2,6 +2,7 @@ from os import environ
 environ['PYGAME_HIDE_SUPPORT_PROMPT'] = "hide"
 
 import math
+import random
 
 import pygame
 pygame.init()
@@ -88,6 +89,8 @@ class player():
         # All sprites are initally facing right, must be flipped to turn left
         self.facing_right = True
 
+        self.blinking = [False, 0]
+
         # Making a cool wave to bob the island up and down
         self.wave_x = 0
         self.y_mod = 0
@@ -136,12 +139,32 @@ class player():
         if not any((game.keys[pygame.K_UP], game.keys[pygame.K_DOWN])):
             self.bob()
 
+        self.blink()
+
     # Function for adding a small bob to the island
     def bob(self):
 
         # Creates a value for y_mod using a cosine wave given an x position and wavelenth + period
         self.wave_x += 1
         self.y_mod = 10 * math.cos(self.wave_x * 0.08)
+
+    def blink(self):
+        if not self.blinking[0]:
+            if random.randint(0, 100) <= 2:
+                self.blinking[0] = True
+
+        else:
+            self.blinking[1] += 1
+            blink_frames = ("Blink1", "Blink1", "Blink2", "Blink2", "Blink1", "Blink1")
+
+            if self.blinking[1] > len(blink_frames):
+                self.blinking[0] = False
+                self.blinking[1] = 0
+                self.sprite_status = "Default"
+
+                return
+
+            self.sprite_status = blink_frames[self.blinking[1] - 1]
 
     # Function for checking whether player is on a border
     def border_check(self, game): # checks which border you are on
@@ -173,17 +196,26 @@ class player():
 
     # Function for drawing the player character (WILL BE UPDATED TO USE A SPRITE)
     def update_draw(self, game):
+        # Hitbox for island
         # pygame.draw.rect(game.win, (155, 40, 40), (self.x, self.y, self.width, self.height))
 
+        # If the sprite is facing right then it does not need to be flipped
         if self.facing_right:
             blit_sprite = self.sprites[self.sprite_status]
+
+        # Otherwise it should be flipped to face left
         else:
             blit_sprite = pygame.transform.flip(self.sprites[self.sprite_status], True, False)
 
+        # Blit the given sprite at the position of the island
         game.win.blit(blit_sprite, (self.x, self.y + self.y_mod))
 
 
-pangaea_sprites = {"Default" : pygame.image.load('data/sprites/PanDefault.png')}
+pangaea_sprites = {
+    "Default" : pygame.image.load('data/sprites/PanDefault.png'),
+    "Blink1" : pygame.image.load('data/sprites/PanBlink1.png'),
+    "Blink2" : pygame.image.load('data/sprites/PanBlink2.png'),
+    }
 
 # List of chunks generated when they are instantiated
 local_chunks = [
