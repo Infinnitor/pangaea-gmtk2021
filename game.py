@@ -289,7 +289,7 @@ class map_chunk():
             self.onscreen = True
 
         # Fill the background with blue
-        game.win.fill(self.bg)
+        game.win.blit(self.bg, (0, 0))
 
         # If a wave is missing replace it
         if len(self.waves_obj) < self.waves_num:
@@ -463,6 +463,7 @@ class player():
 
 # Speechbubble sprite
 speechbubble_var = pygame.image.load('data/sprites/ICONS/SpeechBubble.png')
+sea_var = pygame.image.load('data/sprites/countries/sea.png')
 
 # Loading all sprites to be used and adding them to dictionaries
 pangaea_sprites = {
@@ -533,45 +534,45 @@ text_file = open("data/scripts/northAmerica.txt", "r").readlines()
 NA_script = [i.replace("\n", "") for i in text_file]
 
 # South America
-text_file = open("data/scripts/southAmerica.txt", "r").readlines()
+#text_file = open("data/scripts/southAmerica.txt", "r").readlines()
 SA_script = [i.replace("\n", "") for i in text_file]
 
 # India
-text_file = open("data/scripts/india.txt", "r").readlines()
+#text_file = open("data/scripts/india.txt", "r").readlines()
 india_script = [i.replace("\n", "") for i in text_file]
 
 # Eurasia, one and two
-text_file = open("data/scripts/euraisa1.txt", "r").readlines()
+#text_file = open("data/scripts/euraisa1.txt", "r").readlines()
 euraisa1_script = [i.replace("\n", "") for i in text_file]
-text_file = open("data/scripts/euraisa2.txt", "r").readlines()
+#text_file = open("data/scripts/euraisa2.txt", "r").readlines()
 euraisa2_script = [i.replace("\n", "") for i in text_file]
 
 # Australia
-text_file = open("data/scripts/australia.txt", "r").readlines()
+#text_file = open("data/scripts/australia.txt", "r").readlines()
 australia_script = [i.replace("\n", "") for i in text_file]
 
 # Africa
-text_file = open("data/scripts/africa.txt", "r").readlines()
+#text_file = open("data/scripts/africa.txt", "r").readlines()
 africa_script = [i.replace("\n", "") for i in text_file]
 
 # Island objects
 north_america = island(x=200, y=150, name="NORTH AMERICA", sprites_dict=north_america_sprites, dialogue=NA_script, pangaea_sprites=pangaea_sprites)
 south_america = island(x=200, y=150, name="SOUTH AMERICA", sprites_dict=south_america_sprites, dialogue=SA_script, pangaea_sprites=pangaea_sprites)
-africa = island(x=800, y=300, name="AFRICA", sprites_dict=africa_script, dialogue=africa_script, pangaea_sprites=pangaea_sprites)
+africa = island(x=800, y=300, name="AFRICA", sprites_dict=africa_sprites, dialogue=africa_script, pangaea_sprites=pangaea_sprites)
 india = island(x=800, y=300, name="INDIA", sprites_dict=india_sprites, dialogue=india_script, pangaea_sprites=pangaea_sprites)
 australia = island(x=500, y=300, name="AUSTRALIA", sprites_dict=australia_sprites, dialogue=australia_script, pangaea_sprites=pangaea_sprites)
 
 # List of chunks generated when they are instantiated
 local_chunks = [
-    map_chunk(index=0, name="Top-Left", country=south_america, borders_dict={"Left" : False, "Right" : True, "Up" : False, "Down" : True}, bg=(0, 155, 100)),
-    map_chunk(index=1, name="Top-Middle", country=north_america, borders_dict={"Left": True, "Right": True, "Up": False, "Down": True}, bg=(183, 107, 103)),
-    map_chunk(index=2, name="Top-Right", country=None, borders_dict={"Left" : True, "Right" : False, "Up" : False, "Down" : True}, bg=(98, 62, 238)),
-    map_chunk(index=3, name="Middle-Left", country=None, borders_dict={"Left" : False, "Right" : True, "Up" : True, "Down" : True}, bg=(255, 218, 110)),
-    map_chunk(index=4, name="Middle-Middle", country=None, borders_dict={"Left": True, "Right": True, "Up": True, "Down": True}, bg=(58, 135, 189)),
-    map_chunk(index=5, name="Middle-Right", country=africa, borders_dict={"Left" : True, "Right" : False, "Up" : True, "Down" : True}, bg=(43, 59, 65)),
-    map_chunk(index=6, name="Bottom-Left", country=None, borders_dict={"Left" : False, "Right" : True, "Up" : True, "Down" : False}, bg=(0, 155, 100)),
-    map_chunk(index=7, name="Bottom-Middle", country=india, borders_dict={"Left": True, "Right": True, "Up": True, "Down": False}, bg=(121, 83, 69)),
-    map_chunk(index=8, name="Bottom-Right", country=australia, borders_dict={"Left" : True, "Right" : False, "Up" : True, "Down" : False}, bg=(140, 0, 219))
+    map_chunk(index=0, name="Top-Left", country=south_america, borders_dict={"Left" : False, "Right" : True, "Up" : False, "Down" : True}, bg=sea_var),
+    map_chunk(index=1, name="Top-Middle", country=north_america, borders_dict={"Left": True, "Right": True, "Up": False, "Down": True}, bg=sea_var),
+    map_chunk(index=2, name="Top-Right", country=None, borders_dict={"Left" : True, "Right" : False, "Up" : False, "Down" : True}, bg=sea_var),
+    map_chunk(index=3, name="Middle-Left", country=None, borders_dict={"Left" : False, "Right" : True, "Up" : True, "Down" : True}, bg=sea_var),
+    map_chunk(index=4, name="Middle-Middle", country=None, borders_dict={"Left": True, "Right": True, "Up": True, "Down": True}, bg=sea_var),
+    map_chunk(index=5, name="Middle-Right", country=africa, borders_dict={"Left" : True, "Right" : False, "Up" : True, "Down" : True}, bg=sea_var),
+    map_chunk(index=6, name="Bottom-Left", country=None, borders_dict={"Left" : False, "Right" : True, "Up" : True, "Down" : False}, bg=sea_var),
+    map_chunk(index=7, name="Bottom-Middle", country=india, borders_dict={"Left": True, "Right": True, "Up": True, "Down": False}, bg=sea_var),
+    map_chunk(index=8, name="Bottom-Right", country=australia, borders_dict={"Left" : True, "Right" : False, "Up" : True, "Down" : False}, bg=sea_var)
 ]
 
 vn_sprites_dict = {
@@ -583,7 +584,7 @@ vn_sprites_dict = {
 game = game_info(win_w=1280, win_h=720, chunks=local_chunks, start_chunk=4, waves_dict=wave_sprites, vn_sprites=vn_sprites_dict, xo_sprites=xo_sprite_dict)
 
 # Instantiate player object
-pangea = player(start_x=600, start_y=400, speed=5, start_width=150, start_height=100, sprites_dict=pangaea_sprites)
+pangea = player(start_x=600, start_y=400, speed=5, start_width=270, start_height=170, sprites_dict=pangaea_sprites)
 
 # Maintain consistent framerate
 clock = pygame.time.Clock()
