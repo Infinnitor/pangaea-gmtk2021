@@ -1,19 +1,19 @@
-PANGAEA: India!
-INDIA: Pangaea.
-PANGAEA: What is up, buddy?
-INDIA: Nothing.
-PANGAEA: Nothing? Well, isn't that a shame. |If only there was something somebody could do about that…
-INDIA: ...
-PANGAEA: ...Aren't you going to ask me if there's something I can do about that?
-INDIA: Why would I do that?
-PANGAEA: ...Because I implied there is something I can do about that? |With the tone of my voice?
-INDIA: What if I don't care?
-PANGAEA: ...Don't you want some excitement in your life?
-INDIA: There has never once been excitement in my life. |I rose from the ocean and have drifted slowly around for millennia since. |Why now would I suddenly have a craving for something new?
-PANGAEA: Well, I don't know about you, |but it sort of seems to me like you need excitement more than you might want it. |And I have the perfect thing to provide you with just the right amount of it.
-INDIA: And what would that be?
-PANGAEA: A new lifestyle! Picture this: |you, me, and all the other continents together as one super continent!
-INDIA: My tectonic plates are quaking at the very thought.
-PANGAEA: Oh, come on! It'll be fun! How about this: we play a round of exes and ohs, |and if I win, you come and live with me and the others.
-INDIA: Assuming the others are as bad at exes and ohs as I am.
-PANGAEA: ...Yeah.
+PANGAEA: India! : happy
+INDIA: Pangaea. : happy
+PANGAEA: What is up, buddy? : happy
+INDIA: Nothing. : happy
+PANGAEA: Nothing? Well, isn't that a shame. |If only there was something somebody could do about that... : sad
+INDIA: ... : happy
+PANGAEA: ...Aren't you going to ask me if there's something I can do about that? : sad
+INDIA: Why would I do that? : angry
+PANGAEA: ...Because I implied there is something I can do about that? |With the tone of my voice? : angry
+INDIA: What if I don't care? : happy
+PANGAEA: ...Don't you want some excitement in your life? : happy
+INDIA: There has never once been excitement in my life. |I rose from the ocean and have drifted slowly around for millennia since. |Why now would I suddenly have a craving for something new? : angry
+PANGAEA: Well, I don't know about you, |but it sort of seems to me like you need excitement more than you might want it. |And I have the perfect thing to provide you with just the right amount of it. : happy
+INDIA: And what would that be? : happy
+PANGAEA: A new lifestyle! Picture this: |you, me, and all the other continents together as one super continent! : happy
+INDIA: My tectonic plates are quaking at the very thought. : happy
+PANGAEA: Oh, come on! It'll be fun! How about this: we play a round of exes and ohs, |and if I win, you come and live with me and the others. : happy
+INDIA: Assuming the others are as bad at exes and ohs as I am. : sad
+PANGAEA: ...Yeah. : sad

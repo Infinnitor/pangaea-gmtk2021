@@ -1,15 +1,15 @@
-PANGAEA: Hey there, Eurasia!
-EURASIA: What do you want, Pangaea.
-PANGAEA: Why do you assume that I want something? |Why can't I just be looking to catch up with an old friend?
-EURASIA: I'm a big rock drifting through a sea of nothingness, the same as last time. |There's nothing to "catch up" on. Now, what do you want?
-PANGAEA: Well actually, you're wrong, because there is something to catch up on: I have an idea.
-EURASIA: Oh, boy.
-PANGAEA: You see, I've been thinking: isn't it sad how you, me, |and all the other continents are just drifting around the place, |only bumping into each other every few million years?
-EURASIA: No…
-PANGAEA: Well, I was thinking it would be nice if we all joined together… permanently! |Like one big supercontinent as opposed to just a bunch of lonely mini continents!
-EURASIA: …That is, without a doubt, the dumbest idea I have ever heard.
-PANGAEA: Why?!
-EURASIA: Because nobody is going to agree to that. We'll all just clash together. |Besides, what would we be called?
-PANGAEA: I don't know, I was thinking because it was my idea, |we could all collectively just… go by Pangaea?
-EURASIA: Hah! Pangaea, you make me laugh. You will never be a supercontinent.
-PANGAEA: Well, you'll know where to find us when we're all throwing our cool party together. |Spoiler alert: it won't be in this miserable corner of the ocean!
+PANGAEA: Hey there, Eurasia! : happy
+EURASIA: What do you want, Pangaea. : angry
+PANGAEA: Why do you assume that I want something? |Why can't I just be looking to catch up with an old friend? : happy
+EURASIA: I'm a big rock drifting through a sea of nothingness, the same as last time. |There's nothing to "catch up" on. Now, what do you want? : angry
+PANGAEA: Well actually, you're wrong, because there is something to catch up on: |I have an idea. : happy
+EURASIA: Oh, boy. : angry
+PANGAEA: You see, I've been thinking: isn't it sad how you, me, |and all the other continents are just drifting around the place, |only bumping into each other every few million years? : happy
+EURASIA: No... : angry
+PANGAEA: Well, I was thinking it would be nice if we all joined together... permanently! |Like one big supercontinent as opposed to just a bunch of lonely mini continents! : happy
+EURASIA: ...That is, without a doubt, the dumbest idea I have ever heard. : angry
+PANGAEA: Why?! : sad
+EURASIA: Because nobody is going to agree to that. We'll all just clash together. |Besides, what would we be called? : angry
+PANGAEA: I don't know, I was thinking because it was my idea, |we could all collectively just… go by Pangaea? : happy
+EURASIA: Hah! Pangaea, you make me laugh. You will never be a supercontinent. : happy
+PANGAEA: Well, you'll know where to find us when we're all throwing our cool party together. |Spoiler alert: it won't be in this miserable corner of the ocean! : happy

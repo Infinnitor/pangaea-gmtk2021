@@ -1,18 +1,18 @@
-PANGAEA: Oi, South America!
-SOUTH AMERICA: May I help you, Pangaea?
-PANGAEA: Yes! Well, actually, I wouldn't call it helping. |If anything, I'll be the one helping you.
-SOUTH AMERICA: What do you mean? Do you think I need help with something?
-PANGAEA: No! That's not what I meant at all! I just meant… look, |I have an idea, and I'd like you to hear me out.
-SOUTH AMERICA: Okay?
-PANGAEA: See, I was thinking about us, the continents, |and how we're all so… distant from one another. |Not even you and North America are close, which raises a lot of questions as to why you're even named North and South America, but that's besides the point…
-SOUTH AMERICA: Beside what point exactly, Pangaea? |You haven't made an ounce of sense since you started talking at me.
-PANGAEA: Right, okay, so, basically my point is that we should all be closer! |Like, physically closer. Like, stuck together like one giant supercontinent closer.
-SOUTH AMERICA: Okay, now I'm starting to miss ten seconds ago when you weren't |making sense but at least I didn't have that image in my head.
-PANGAEA: Come on, Southy! Don't be that way!
-SOUTH AMERICA: Please never call me that again.
-PANGAEA: Okay, but at least tell me what's so bad about my idea?
-SOUTH AMERICA: I don't know about you, but I don't quite fancy the idea of being |attached to you or any other continent, for that matter. |I like being an independent continent.
-PANGAEA: But your name doesn't even make sense that way! |At least if we're all together, you can be down south and justify your name!
-SOUTH AMERICA: What is it with you and my name?
-PANGAEA: Nothing... look, how about we settle this over a game of exes and ohs?
-SOUTH AMERICA: Exes and ohs... North America loves that method of diplomacy. |Okay, Pangaea. You're on.
+PANGAEA: Oi, South America! : happy
+SOUTH AMERICA: May I help you, Pangaea? : happy
+PANGAEA: Yes! Well, actually, I wouldn't call it helping. |If anything, I'll be the one helping you. : happy
+SOUTH AMERICA: What do you mean? Do you think I need help with something? : happy
+PANGAEA: No! That's not what I meant at all! I just meant… look, |I have an idea, and I'd like you to hear me out. : happy
+SOUTH AMERICA: Okay? : happy
+PANGAEA: See, I was thinking about us, the continents, |and how we're all so... distant from one another. |Not even you and North America are close, |which raises a lot of questions as to why you're even named |North and South America, but that's besides the point... : sad
+SOUTH AMERICA: Beside what point exactly, Pangaea? |You haven't made an ounce of sense since you started talking at me. : angry
+PANGAEA: Right, okay, so, basically my point is that we should all be closer! |Like, physically closer. Like, stuck together like one giant supercontinent closer. : happy
+SOUTH AMERICA: Okay, now I'm starting to miss ten seconds ago when you weren't |making sense but at least I didn't have that image in my head. : happy
+PANGAEA: Come on, Southy! Don't be that way! : happy
+SOUTH AMERICA: Please never call me that again. : angry
+PANGAEA: Okay, but at least tell me what's so bad about my idea? : sad
+SOUTH AMERICA: I don't know about you, but I don't quite fancy the idea of being |attached to you or any other continent, for that matter. |I like being an independent continent. : happy
+PANGAEA: But your name doesn't even make sense that way! |At least if we're all together, you can be down south and justify your name! : happy
+SOUTH AMERICA: What is it with you and my name? : sad
+PANGAEA: Nothing... look, how about we settle this over a game of exes and ohs? : happy
+SOUTH AMERICA: Exes and ohs... North America loves that method of diplomacy. |Okay, Pangaea. You're on. : happy
