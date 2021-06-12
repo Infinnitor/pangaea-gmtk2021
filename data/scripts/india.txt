@@ -10,10 +10,10 @@ PANGAEA: ...Because I implied there is something I can do about that? |With the 
 INDIA: What if I don't care? : happy
 PANGAEA: ...Don't you want some excitement in your life? : happy
 INDIA: There has never once been excitement in my life. |I rose from the ocean and have drifted slowly around for millennia since. |Why now would I suddenly have a craving for something new? : angry
-PANGAEA: Well, I don't know about you, |but it sort of seems to me like you need excitement more than you might want it. |And I have the perfect thing to provide you with just the right amount of it. : happy
+PANGAEA: Well, I don't know about you, but it sort of seems |to me like you need excitement more than you might want it. And |I have the perfect thing to provide you with just the right amount of it. : happy
 INDIA: And what would that be? : happy
-PANGAEA: A new lifestyle! Picture this: |you, me, and all the other continents together as one super continent! : happy
+PANGAEA: A new lifestyle! Picture this; |you, me, and all the other continents together as one super continent! : happy
 INDIA: My tectonic plates are quaking at the very thought. : happy
-PANGAEA: Oh, come on! It'll be fun! How about this: we play a round of exes and ohs, |and if I win, you come and live with me and the others. : happy
+PANGAEA: Oh, come on! It'll be fun! How about this |we play a round of exes and ohs, and if I win, you come and live with me and the others. : happy
 INDIA: Assuming the others are as bad at exes and ohs as I am. : sad
 PANGAEA: ...Yeah. : sad

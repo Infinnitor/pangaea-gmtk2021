@@ -187,6 +187,8 @@ class island():
 
             # Split dialogue on a colon to get both the speaker and their dialogue
             t = text.split(":")
+            print(t)
+
             self.dialogue_emotion.append(t[2].replace(" ", ""))
             self.dialogue_speaker_text.append(t[0])
             self.dialogue_speaker.append(dialogue_font.render(t[0], True, (40, 40, 155)))
@@ -534,25 +536,25 @@ text_file = open("data/scripts/northAmerica.txt", "r").readlines()
 NA_script = [i.replace("\n", "") for i in text_file]
 
 # South America
-#text_file = open("data/scripts/southAmerica.txt", "r").readlines()
+text_file = open("data/scripts/southAmerica.txt", "r").readlines()
 SA_script = [i.replace("\n", "") for i in text_file]
 
 # India
-#text_file = open("data/scripts/india.txt", "r").readlines()
+text_file = open("data/scripts/india.txt", "r").readlines()
 india_script = [i.replace("\n", "") for i in text_file]
 
 # Eurasia, one and two
-#text_file = open("data/scripts/euraisa1.txt", "r").readlines()
+text_file = open("data/scripts/euraisa1.txt", "r").readlines()
 euraisa1_script = [i.replace("\n", "") for i in text_file]
-#text_file = open("data/scripts/euraisa2.txt", "r").readlines()
+text_file = open("data/scripts/euraisa2.txt", "r").readlines()
 euraisa2_script = [i.replace("\n", "") for i in text_file]
 
 # Australia
-#text_file = open("data/scripts/australia.txt", "r").readlines()
+text_file = open("data/scripts/australia.txt", "r").readlines()
 australia_script = [i.replace("\n", "") for i in text_file]
 
 # Africa
-#text_file = open("data/scripts/africa.txt", "r").readlines()
+text_file = open("data/scripts/africa.txt", "r").readlines()
 africa_script = [i.replace("\n", "") for i in text_file]
 
 # Island objects
