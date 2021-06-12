@@ -9,7 +9,7 @@ pygame.init()
 
 
 class game_info(): # main game class
-    def __init__(self, win_w, win_h, chunks, start_chunk):
+    def __init__(self, win_w, win_h, chunks, start_chunk, waves_dict):
 
         self.win_w = win_w
         self.win_h = win_h
@@ -22,6 +22,8 @@ class game_info(): # main game class
         self.current_chunk = start_chunk
 
         self.run = True
+
+        self.waves_sprites = waves_dict
 
     def update_keys(self):
         # self.keys is a list if current keys that are pressed
@@ -66,21 +68,48 @@ class map_chunk(): # "Room" or "Chunk" where each country will be in
     # Function for drawing the current chunk
     def update_draw(self, game):
         if not self.onscreen:
-            pass
-        self.onscreen = True
+            self.waves_obj = []
+            for w in range(20):
+                self.make_wave(x=random.randint(0, game.win_w), game=game)
+
+            self.onscreen = True
 
         game.win.fill(self.bg)
 
+        if len(self.waves_obj) < 20:
+            self.make_wave(x=-20, game=game)
+
+        for w in self.waves_obj:
+            w.update_move(self, game)
+            w.update_draw(game)
+
+    def make_wave(self, x, game):
+        self.waves_obj.append(wave(
+            start_x=x,
+            start_y=random.randint(0, game.win_h),
+            length=random.choice(["Short", "Medium", "Long"]),
+            sprites=game.waves_sprites))
+
 
 class wave():
-    def __init__(self):
-        pass
+    def __init__(self, start_x, start_y, length, sprites):
+        self.x = start_x
+        self.y = start_y
 
-    def update_move(self, game):
-        pass
+        self.y_mod = 0
+
+        self.sprite = sprites[length]
+
+    def update_move(self, parent_chunk, game):
+        self.x += 1
+
+        self.y_mod = 4 * math.cos(self.x) * 0.25
+
+        if self.x > game.win_w:
+            parent_chunk.waves_obj.remove(self)
 
     def update_draw(self, game):
-        pass
+        game.win.blit(self.sprite, (self.x, self.y + self.y_mod))
 
 
 # THE player (you)
@@ -246,6 +275,12 @@ pangaea_sprites = {
     "Blink2" : pygame.image.load('data/sprites/PanBlink2.png'),
     }
 
+wave_sprites = {
+    "Short" : pygame.image.load('data/sprites/WaveShort.png'),
+    "Medium" : pygame.image.load('data/sprites/WaveMedium.png'),
+    "Long" : pygame.image.load('data/sprites/WaveLong.png')
+}
+
 # List of chunks generated when they are instantiated
 local_chunks = [
     map_chunk(index=0, name="Top-Left", countries=("Green"), borders_dict={"Left" : False, "Right" : True, "Up" : False, "Down" : True}, bg=(0, 155, 100)),
@@ -260,7 +295,7 @@ local_chunks = [
 ]
 
 # Instantiate object for storing game info
-game = game_info(win_w=1280, win_h=720, chunks=local_chunks, start_chunk=1)
+game = game_info(win_w=1280, win_h=720, chunks=local_chunks, start_chunk=1, waves_dict=wave_sprites)
 
 # Instantiate player object
 pangea = player(start_x=600, start_y=400, speed=5, start_width=150, start_height=100, sprites_dict=pangaea_sprites)
