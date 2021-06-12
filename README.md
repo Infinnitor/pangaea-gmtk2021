@@ -4,15 +4,16 @@ Ye it the game jam
 # main idea will go here:
 
 island that wants to be a continent
-- visual novel to convince nations to join your continent
-- 2d katamari
-- agar.io gameplay??????
-- metroid map movement
-- mc is pangaea
-- diplomacy minigame
-- joining together minigame
-- player gets slower as more landmass is added
-- could be collectibles in the ocean that would be small areas of land that you could add to yourself, just for the craic
+- [x] visual novel to convince nations to join your continent
+- [x] 2d katamari
+- [ ] agar.io gameplay??????
+- [x] metroid map movement
+- [x] mc is pangaea
+- [ ] diplomacy minigame
+- [x] joining together minigame
+- [ ] player gets slower as more landmass is added
+- [ ] could be collectibles in the ocean that would be small areas of land that you could add to yourself, just for the craic
+- [x] exes and ohs (by elle king)
 
 
 # Joined together
