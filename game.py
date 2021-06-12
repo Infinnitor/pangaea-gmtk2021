@@ -61,10 +61,26 @@ class map_chunk(): # "Room" or "Chunk" where each country will be in
 
         # Colour to display for background (WILL BE REPLACED WITH A SPRITE)
         self.bg = bg
+        self.onscreen = False
 
     # Function for drawing the current chunk
     def update_draw(self, game):
+        if not self.onscreen:
+            pass
+        self.onscreen = True
+
         game.win.fill(self.bg)
+
+
+class wave():
+    def __init__(self):
+        pass
+
+    def update_move(self, game):
+        pass
+
+    def update_draw(self, game):
+        pass
 
 
 # THE player (you)
@@ -136,6 +152,7 @@ class player():
             # Calls the change_chunk() function with information about current border
             game.change_chunk(on_border)
 
+        # If up and down are not pressed, then the island can play the bobbing animation
         if not any((game.keys[pygame.K_UP], game.keys[pygame.K_DOWN])):
             self.bob()
 
@@ -148,29 +165,41 @@ class player():
         self.wave_x += 1
         self.y_mod = 10 * math.cos(self.wave_x * 0.08)
 
+    # Function for adding random blinking to the island
     def blink(self):
+
+        # If not already blinking, then decide whether or not to
         if not self.blinking[0]:
+
+            # 2% chance to blink
             if random.randint(0, 100) <= 2:
                 self.blinking[0] = True
 
+        # If already blinking, decide which blinking frame to display
         else:
             self.blinking[1] += 1
+
+            # Timeline of frames played in animation
             blink_frames = ("Blink1", "Blink1", "Blink2", "Blink2", "Blink1", "Blink1")
 
+            # If animation time is longer than animation length, reset blinking information
             if self.blinking[1] > len(blink_frames):
+
                 self.blinking[0] = False
                 self.blinking[1] = 0
                 self.sprite_status = "Default"
 
                 return
 
+            # Status is equal to the given frame in the animation
             self.sprite_status = blink_frames[self.blinking[1] - 1]
 
     # Function for checking whether player is on a border
-    def border_check(self, game): # checks which border you are on
+    def border_check(self, game):
 
         border_pos = False
 
+        # Checks which border you are on
         if self.x + (self.width // 2) < 0:
             border_pos = "Left"
 
@@ -230,27 +259,37 @@ local_chunks = [
     map_chunk(index=8, name="Bottom-Right", countries=("North America"), borders_dict={"Left" : True, "Right" : False, "Up" : True, "Down" : False}, bg=(140, 0, 219))
 ]
 
-
+# Instantiate object for storing game info
 game = game_info(win_w=1280, win_h=720, chunks=local_chunks, start_chunk=1)
 
+# Instantiate player object
 pangea = player(start_x=600, start_y=400, speed=5, start_width=150, start_height=100, sprites_dict=pangaea_sprites)
 
+# Maintain consistent framerate
 clock = pygame.time.Clock()
 
+# Mainloop
 while game.run:
-
     clock.tick(60)
 
+    # Update pygame display and delete everything
     pygame.display.update()
     game.win.fill((0, 0, 0))
+
+    # Update which keys are pressed down by the user
     game.update_keys()
 
+    # Draw the current chunk
     game.chunks[game.current_chunk].update_draw(game)
+
+    # Update the player character's movement and draw them
     pangea.update_move(game)
     pangea.update_draw(game)
 
+    # Check for closing of widow
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             game.run = False
 
+# When mainloop is broken, quit
 pygame.quit()
