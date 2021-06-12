@@ -59,11 +59,11 @@ class game_info():
         # If the textbox has not reached its destination
         if not self.textbox_still:
             # Smooth movment of textbox
-            if self.textbox_y[0] > self.win_h - 250:
+            if self.textbox_y[0] > self.win_h - 310:
                 self.textbox_y[0] -= self.textbox_y[1]
                 self.textbox_y[1] += 0.5
             else:
-                self.textbox_y[0] = self.win_h - 250
+                self.textbox_y[0] = self.win_h - 310
                 self.textbox_still = True
 
         # Display UI elements
@@ -121,10 +121,15 @@ class island():
         # Variables for tracking dialogue info across multiple frames
         self.dialogue_index = 0
 
+        # THE font
         dialogue_font = pygame.font.SysFont(None, 50)
+
+        # Create two lists for the speaker and text
         self.dialogue_obj = []
         self.dialogue_speaker = []
         for text in dialogue:
+
+            # Split dialogue on a colon to get both the speaker and their dialogue
             t = text.split(":")
             self.dialogue_speaker.append(dialogue_font.render(t[0], True, (40, 40, 155)))
             self.dialogue_obj.append(dialogue_font.render(t[1], True, (40, 40, 155)))
@@ -136,8 +141,8 @@ class island():
     def update_talk(self, game):
 
         # Display dialogue (NOT WORKING CODE LOL)
-        game.win.blit(self.dialogue_speaker[self.dialogue_index], (50, game.textbox_y[0] - 40))
-        game.win.blit(self.dialogue_obj[self.dialogue_index], (50, game.textbox_y[0] + 30))
+        game.win.blit(self.dialogue_speaker[self.dialogue_index], (80, game.textbox_y[0] + 15))
+        game.win.blit(self.dialogue_obj[self.dialogue_index], (50, game.textbox_y[0] + 70))
 
         # Check if space key is being pressed for the first time
         if game.keys[pygame.K_SPACE]:
@@ -149,6 +154,7 @@ class island():
         else:
             self.space_key_buffer = False
 
+    # Function that just bobs the wee island and checks for space key press
     def update_move(self, game):
         self.bob()
 
