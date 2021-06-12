@@ -32,9 +32,17 @@ class game_info():
         # Sprites to use for waves
         self.waves_sprites = waves_dict
 
+        # Game state, 0 - exploration, 1 - VN, 2 - minigame
+        self.game_state = 0
+
     def update_keys(self):
         # self.keys is a list if current keys that are pressed
         self.keys = pygame.key.get_pressed()
+
+        if not any([self.keys[pygame.K_SPACE], self.keys[pygame.K_UP], self.keys[pygame.K_DOWN], self.keys[pygame.K_LEFT], self.keys[pygame.K_RIGHT]]):
+            self.nonepressed = True
+        else:
+            self.nonepressed = False
 
     # Function called by player when current chunk needs to be changed
     def change_chunk(self, direction):
@@ -53,8 +61,53 @@ class game_info():
             self.current_chunk += 3
 
 
+# Class for islands that appear in chunks
+class island():
+    def __init__(self, x, y, name, sprites_dict, dialogue):
+
+        self.x = x
+        self.y = y
+
+        self.wave_x = 0
+        self.y_mod = 0
+
+        self.name = name
+        self.status = "Default"
+
+        self.sprites = sprites_dict
+        self.dialogue = dialogue
+        self.dialogue_index = 0
+
+        self.space_key_buffer = False
+
+    def update_talk(self, game):
+
+        game.win.blit(self.dialogue[self.dialogue_index])
+
+        if game.keys[pygame.K_SPACE]:
+            if not self.space_key_buffer:
+                self.space_key_buffer = True
+
+                self.dialogue_index += 1
+
+        else:
+            self.space_key_buffer = False
+
+    def update_draw(self, game):
+        self.bob()
+        game.win.blit(self.sprites[self.status], (self.x, self.y + self.y_mod))
+
+    # Function for adding a small bob to the island
+    def bob(self):
+
+        # Creates a value for y_mod using a cosine wave given an x position and wavelenth + period
+        self.wave_x += 1
+        self.y_mod = 10 * math.cos(self.wave_x * 0.08)
+
+
+
 class map_chunk(): # "Room" or "Chunk" where each country will be in
-    def __init__(self, index, name, countries, borders_dict, bg):
+    def __init__(self, index, name, country, borders_dict, bg):
 
         # Where the chunk appears in the game.chunks list, might be used for validation
         self.index = index
@@ -63,7 +116,7 @@ class map_chunk(): # "Room" or "Chunk" where each country will be in
         self.name = name
 
         # List of countries that appear in the chunk
-        self.countries = countries
+        self.country = country
 
         # Dictionary of chunks borders, where borders that can be crossed are True, and ones that cannot are False
         self.borders = borders_dict
@@ -97,6 +150,9 @@ class map_chunk(): # "Room" or "Chunk" where each country will be in
         for w in self.waves_obj:
             w.update_move(self, game)
             w.update_draw(game)
+
+        if self.country != None:
+            self.country.update_draw(game)
 
     # Function for making waves
     def make_wave(self, x, game):
@@ -305,17 +361,19 @@ wave_sprites = {
     "Long" : pygame.image.load('data/sprites/WaveLong.png')
 }
 
+britan = island(x=200, y=150, name="Bri'an", sprites_dict={"Default" : pangaea_sprites["Default"]}, dialogue="shark's tale SUCKS")
+
 # List of chunks generated when they are instantiated
 local_chunks = [
-    map_chunk(index=0, name="Top-Left", countries=("Green"), borders_dict={"Left" : False, "Right" : True, "Up" : False, "Down" : True}, bg=(0, 155, 100)),
-    map_chunk(index=1, name="Top-Middle", countries=("Red"), borders_dict={"Left": True, "Right": True, "Up": False, "Down": True}, bg=(183, 107, 103)),
-    map_chunk(index=2, name="Top-Right", countries=("Purple"), borders_dict={"Left" : True, "Right" : False, "Up" : False, "Down" : True}, bg=(98, 62, 238)),
-    map_chunk(index=3, name="Middle-Left", countries=("Yellow"), borders_dict={"Left" : False, "Right" : True, "Up" : True, "Down" : True}, bg=(255, 218, 110)),
-    map_chunk(index=4, name="Middle-Middle", countries=("Dark Cyan"), borders_dict={"Left": True, "Right": True, "Up": True, "Down": True}, bg=(58, 135, 189)),
-    map_chunk(index=5, name="Middle-Right", countries=("Grey"), borders_dict={"Left" : True, "Right" : False, "Up" : True, "Down" : True}, bg=(43, 59, 65)),
-    map_chunk(index=6, name="Bottom-Left", countries=("North America"), borders_dict={"Left" : False, "Right" : True, "Up" : True, "Down" : False}, bg=(0, 155, 100)),
-    map_chunk(index=7, name="Bottom-Middle", countries=("Brown"), borders_dict={"Left": True, "Right": True, "Up": True, "Down": False}, bg=(121, 83, 69)),
-    map_chunk(index=8, name="Bottom-Right", countries=("North America"), borders_dict={"Left" : True, "Right" : False, "Up" : True, "Down" : False}, bg=(140, 0, 219))
+    map_chunk(index=0, name="Top-Left", country=None, borders_dict={"Left" : False, "Right" : True, "Up" : False, "Down" : True}, bg=(0, 155, 100)),
+    map_chunk(index=1, name="Top-Middle", country=britan, borders_dict={"Left": True, "Right": True, "Up": False, "Down": True}, bg=(183, 107, 103)),
+    map_chunk(index=2, name="Top-Right", country=None, borders_dict={"Left" : True, "Right" : False, "Up" : False, "Down" : True}, bg=(98, 62, 238)),
+    map_chunk(index=3, name="Middle-Left", country=None, borders_dict={"Left" : False, "Right" : True, "Up" : True, "Down" : True}, bg=(255, 218, 110)),
+    map_chunk(index=4, name="Middle-Middle", country=None, borders_dict={"Left": True, "Right": True, "Up": True, "Down": True}, bg=(58, 135, 189)),
+    map_chunk(index=5, name="Middle-Right", country=None, borders_dict={"Left" : True, "Right" : False, "Up" : True, "Down" : True}, bg=(43, 59, 65)),
+    map_chunk(index=6, name="Bottom-Left", country=None, borders_dict={"Left" : False, "Right" : True, "Up" : True, "Down" : False}, bg=(0, 155, 100)),
+    map_chunk(index=7, name="Bottom-Middle", country=None, borders_dict={"Left": True, "Right": True, "Up": True, "Down": False}, bg=(121, 83, 69)),
+    map_chunk(index=8, name="Bottom-Right", country=None, borders_dict={"Left" : True, "Right" : False, "Up" : True, "Down" : False}, bg=(140, 0, 219))
 ]
 
 # Instantiate object for storing game info
@@ -342,8 +400,13 @@ while game.run:
     game.chunks[game.current_chunk].update_draw(game)
 
     # Update the player character's movement and draw them
-    pangea.update_move(game)
+    if game.game_state == 0: # Can only move while in exploration mode
+        pangea.update_move(game)
     pangea.update_draw(game)
+
+    if game.game_state == 1:
+        # VN TIME
+        game.display_VNUI()
 
     # Check for closing of widow
     for event in pygame.event.get():
