@@ -190,7 +190,7 @@ class island():
         self.dialogue_index = 0
 
         # THE font
-        dialogue_font = pygame.font.Font(fix_path("data\\Roboto.ttf"), 50)
+        dialogue_font = pygame.font.Font(fix_path("data\\Roboto.ttf"), 35)
 
         # Create two lists for the speaker and text
         self.dialogue_obj = []
@@ -495,7 +495,6 @@ def fix_path(relative_path):
     abs_path = os.path.join(base_path, relative_path)
 
     if sys.platform == "linux":
-        print(True)
         abs_path = abs_path.replace("\\", "/")
 
     print(abs_path)
