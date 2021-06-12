@@ -494,7 +494,7 @@ def fix_path(relative_path):
 
     abs_path = os.path.join(base_path, relative_path)
 
-    if sys.platform == "linux":
+    if sys.platform == "linux" or sys.platform == "linux2":
         abs_path = abs_path.replace("\\", "/")
 
     print(abs_path)
