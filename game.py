@@ -461,8 +461,10 @@ class player():
         game.win.blit(blit_sprite, (self.x, self.y + self.y_mod))
 
 
+# Speechbubble sprite
 speechbubble_var = pygame.image.load('data/sprites/ICONS/SpeechBubble.png')
 
+# Loading all sprites to be used and adding them to dictionaries
 pangaea_sprites = {
     "Default" : pygame.image.load('data/sprites/countries/pangea/head.png'),
     "Head" : pygame.image.load('data/sprites/countries/pangea/head.png'),
@@ -526,26 +528,33 @@ xo_sprite_dict = {
     "O" : pygame.image.load("data/sprites/ICONS/o.png"),
 }
 
+# North America
 text_file = open("data/scripts/northAmerica.txt", "r").readlines()
 NA_script = [i.replace("\n", "") for i in text_file]
 
+# South America
 text_file = open("data/scripts/southAmerica.txt", "r").readlines()
 SA_script = [i.replace("\n", "") for i in text_file]
 
+# India
 text_file = open("data/scripts/india.txt", "r").readlines()
 india_script = [i.replace("\n", "") for i in text_file]
 
+# Eurasia, one and two
 text_file = open("data/scripts/euraisa1.txt", "r").readlines()
 euraisa1_script = [i.replace("\n", "") for i in text_file]
 text_file = open("data/scripts/euraisa2.txt", "r").readlines()
 euraisa2_script = [i.replace("\n", "") for i in text_file]
 
+# Australia
 text_file = open("data/scripts/australia.txt", "r").readlines()
 australia_script = [i.replace("\n", "") for i in text_file]
 
+# Africa
 text_file = open("data/scripts/africa.txt", "r").readlines()
 africa_script = [i.replace("\n", "") for i in text_file]
 
+# Island objects
 north_america = island(x=200, y=150, name="NORTH AMERICA", sprites_dict=north_america_sprites, dialogue=NA_script, pangaea_sprites=pangaea_sprites)
 south_america = island(x=200, y=150, name="SOUTH AMERICA", sprites_dict=south_america_sprites, dialogue=SA_script, pangaea_sprites=pangaea_sprites)
 africa = island(x=800, y=300, name="AFRICA", sprites_dict=africa_script, dialogue=africa_script, pangaea_sprites=pangaea_sprites)
