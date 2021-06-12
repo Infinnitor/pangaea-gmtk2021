@@ -24,7 +24,7 @@ island that wants to be a continent
 - export
 
 # Joined together
-
+pyinstaller game.py --onefile --noconsole
 - physically Joined
   - game where you control 2 players but you cant go a certain distance
 
