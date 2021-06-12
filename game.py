@@ -1,8 +1,12 @@
+
 from os import environ
 environ['PYGAME_HIDE_SUPPORT_PROMPT'] = "hide"
 
 import math
 import random
+
+import sys
+import os
 
 import pygame
 pygame.init()
@@ -480,100 +484,241 @@ class player():
         # Blit the given sprite at the position of the island
         game.win.blit(blit_sprite, (self.x, self.y + self.y_mod))
 
+def fix_path(filepath):
+    if getattr(sys, 'frozen', False):
+        PATH = os.path.dirname(sys.executable)
+        print("Problem with finding relative path")  #This is for when the program is frozen
+    else:
+        PATH = os.path.dirname(__file__) #This is when the program normally runs
+
+    print(PATH)
+    rel_path = os.path.join(PATH, filepath)
+    print(rel_path)
+    return rel_path
 
 # Speechbubble sprite
-speechbubble_var = pygame.image.load('data/sprites/ICONS/SpeechBubble.png')
-sea_var = pygame.image.load('data/sprites/COUNTRIES/sea.png')
+speechbubble_var = pygame.image.load(fix_path('data\\sprites\\ICONS\\SpeechBubble.png'))
+sea_var = pygame.image.load(fix_path('data\\sprites\\COUNTRIES\\sea.png'))
 
 # Loading all sprites to be used and adding them to dictionaries
 pangaea_sprites = {
-    "Default" : pygame.image.load('data/sprites/COUNTRIES/pangea/head.png'),
-    "Head" : pygame.image.load('data/sprites/COUNTRIES/pangea/head.png'),
-    "happy" : pygame.image.load('data/sprites/COUNTRIES/pangea/happy.png'),
-    "angry" : pygame.image.load('data/sprites/COUNTRIES/pangea/angry.png'),
-    "sad" : pygame.image.load('data/sprites/COUNTRIES/pangea/sad.png'),
+    "Default" : pygame.image.load(fix_path('data\\sprites\\COUNTRIES\\pangea\\head.png')),
+    "Head" : pygame.image.load(fix_path('data\\sprites\\COUNTRIES\\pangea\\head.png')),
+    "happy" : pygame.image.load(fix_path('data\\sprites\\COUNTRIES\\pangea\\happy.png')),
+    "angry" : pygame.image.load(fix_path('data\\sprites\\COUNTRIES\\pangea\\angry.png')),
+    "sad" : pygame.image.load(fix_path('data\\sprites\\COUNTRIES\\pangea\\sad.png')),
     "SpeechBubble" : speechbubble_var
 }
 africa_sprites = {
-    "Head" : pygame.image.load('data/sprites/COUNTRIES/africa/head.png'),
-    "happy" : pygame.image.load('data/sprites/COUNTRIES/africa/happy.png'),
-    "angry" : pygame.image.load('data/sprites/COUNTRIES/africa/angry.png'),
-    "sad" : pygame.image.load('data/sprites/COUNTRIES/africa/sad.png'),
+    "Head" : pygame.image.load(fix_path('data\\sprites\\COUNTRIES\\africa\\head.png')),
+    "happy" : pygame.image.load(fix_path('data\\sprites\\COUNTRIES\\africa\\happy.png')),
+    "angry" : pygame.image.load(fix_path('data\\sprites\\COUNTRIES\\africa\\angry.png')),
+    "sad" : pygame.image.load(fix_path('data\\sprites\\COUNTRIES\\africa\\sad.png')),
     "SpeechBubble" : speechbubble_var
 }
 australia_sprites = {
-    "Head" : pygame.image.load('data/sprites/COUNTRIES/australia/head.png'),
-    "happy" : pygame.image.load('data/sprites/COUNTRIES/australia/happy.png'),
-    "angry" : pygame.image.load('data/sprites/COUNTRIES/australia/angry.png'),
-    "sad" : pygame.image.load('data/sprites/COUNTRIES/australia/sad.png'),
+    "Head" : pygame.image.load(fix_path('data\\sprites\\COUNTRIES\\australia\\head.png')),
+    "happy" : pygame.image.load(fix_path('data\\sprites\\COUNTRIES\\australia\\happy.png')),
+    "angry" : pygame.image.load(fix_path('data\\sprites\\COUNTRIES\\australia\\angry.png')),
+    "sad" : pygame.image.load(fix_path('data\\sprites\\COUNTRIES\\australia\\sad.png')),
     "SpeechBubble" : speechbubble_var
 }
 euraisa_sprites = {
-    "Head" : pygame.image.load('data/sprites/COUNTRIES/euraisa/head.png'),
-    "happy" : pygame.image.load('data/sprites/COUNTRIES/euraisa/happy.png'),
-    "angry" : pygame.image.load('data/sprites/COUNTRIES/euraisa/angry.png'),
-    "sad" : pygame.image.load('data/sprites/COUNTRIES/euraisa/sad.png'),
+    "Head" : pygame.image.load(fix_path('data\\sprites\\COUNTRIES\\euraisa\\head.png')),
+    "happy" : pygame.image.load(fix_path('data\\sprites\\COUNTRIES\\euraisa\\happy.png')),
+    "angry" : pygame.image.load(fix_path('data\\sprites\\COUNTRIES\\euraisa\\angry.png')),
+    "sad" : pygame.image.load(fix_path('data\\sprites\\COUNTRIES\\euraisa\\sad.png')),
     "SpeechBubble" : speechbubble_var
 }
 india_sprites = {
-    "Head" : pygame.image.load('data/sprites/COUNTRIES/india/head.png'),
-    "happy" : pygame.image.load('data/sprites/COUNTRIES/india/happy.png'),
-    "angry" : pygame.image.load('data/sprites/COUNTRIES/india/angry.png'),
-    "sad" : pygame.image.load('data/sprites/COUNTRIES/india/sad.png'),
+    "Head" : pygame.image.load(fix_path('data\\sprites\\COUNTRIES\\india\\head.png')),
+    "happy" : pygame.image.load(fix_path('data\\sprites\\COUNTRIES\\india\\happy.png')),
+    "angry" : pygame.image.load(fix_path('data\\sprites\\COUNTRIES\\india\\angry.png')),
+    "sad" : pygame.image.load(fix_path('data\\sprites\\COUNTRIES\\india\\sad.png')),
     "SpeechBubble" : speechbubble_var
 }
 north_america_sprites = {
-    "Head" : pygame.image.load('data/sprites/COUNTRIES/northAmerica/head.png'),
-    "happy" : pygame.image.load('data/sprites/COUNTRIES/northAmerica/happy.png'),
-    "angry" : pygame.image.load('data/sprites/COUNTRIES/northAmerica/angry.png'),
-    "sad" : pygame.image.load('data/sprites/COUNTRIES/northAmerica/sad.png'),
+    "Head" : pygame.image.load(fix_path('data\\sprites\\COUNTRIES\\northAmerica\\head.png')),
+    "happy" : pygame.image.load(fix_path('data\\sprites\\COUNTRIES\\northAmerica\\happy.png')),
+    "angry" : pygame.image.load(fix_path('data\\sprites\\COUNTRIES\\northAmerica\\angry.png')),
+    "sad" : pygame.image.load(fix_path('data\\sprites\\COUNTRIES\\northAmerica\\sad.png')),
     "SpeechBubble" : speechbubble_var
 }
 south_america_sprites = {
-    "Head" : pygame.image.load('data/sprites/COUNTRIES/southAmerica/head.png'),
-    "happy" : pygame.image.load('data/sprites/COUNTRIES/southAmerica/happy.png'),
-    "angry" : pygame.image.load('data/sprites/COUNTRIES/southAmerica/angry.png'),
-    "sad" : pygame.image.load('data/sprites/COUNTRIES/southAmerica/sad.png'),
+    "Head" : pygame.image.load(fix_path('data\\sprites\\COUNTRIES\\southAmerica\\head.png')),
+    "happy" : pygame.image.load(fix_path('data\\sprites\\COUNTRIES\\southAmerica\\happy.png')),
+    "angry" : pygame.image.load(fix_path('data\\sprites\\COUNTRIES\\southAmerica\\angry.png')),
+    "sad" : pygame.image.load(fix_path('data\\sprites\\COUNTRIES\\southAmerica\\sad.png')),
     "SpeechBubble" : speechbubble_var
 }
 
 wave_sprites = {
-    "Short" : pygame.image.load('data/sprites/WaveShort.png'),
-    "Medium" : pygame.image.load('data/sprites/WaveMedium.png'),
-    "Long" : pygame.image.load('data/sprites/WaveLong.png'),
+    "Short" : pygame.image.load(fix_path('data\\sprites\\WaveShort.png')),
+    "Medium" : pygame.image.load(fix_path('data\\sprites\\WaveMedium.png')),
+    "Long" : pygame.image.load(fix_path('data\\sprites\\WaveLong.png')),
 }
 
 xo_sprite_dict = {
-    "None" : pygame.image.load("data/sprites/ICONS/empty.png"),
-    "X" : pygame.image.load("data/sprites/ICONS/x.png"),
-    "O" : pygame.image.load("data/sprites/ICONS/o.png"),
+    "None" : pygame.image.load(fix_path("data\\sprites\\ICONS\\empty.png")),
+    "X" : pygame.image.load(fix_path("data\\sprites\\ICONS\\x.png")),
+    "O" : pygame.image.load(fix_path("data\\sprites\\ICONS\\o.png")),
 }
 
+window = pygame.display.set_mode((1000, 1000))
+window.blit(xo_sprite_dict["None"], (0, 0))
+
 # North America
-text_file = open("data/scripts/northAmerica.txt", "r").readlines()
-NA_script = [i.replace("\n", "") for i in text_file]
+NA_script = [
+
+    "PANGAEA: Hey, North America! : happy",
+    "NORTH AMERICA: Ay, Pangy my Mangy! What is going on? : happy",
+    "PANGAEA: Oh, you know, just the usual. : sad",
+    "PANGAEA: Hey, actually, it just occurred to me, |I had this little tiny idea that maybe you might wanna hear? : happy",
+    "NORTH AMERICA : Fire away, my dude. : happy",
+    "PANGAEA: Well, I was thinking maybe you, and me, |and all of the other continents could kind of come together - : happy",
+    "NORTH AMERICA: Oh, to have like a party or something? : happy",
+    "PANGAEA: No, not quite. I was thinking something a little more... permanent. |Like, living together permanently. : sad",
+    "NORTH AMERICA: Oh, I don't know about that, man. |I can't see myself lasting more than two-hundred and seventy years |with that stuck-up Eurasia. : angry",
+    "NORTH AMERICA: They're so far up their oceanic ridge, you know what I mean? : angry",
+    "PANGAEA: Well, I don't think they're gonna be involved... |look, could you please just consider?  : sad",
+    "PANGAEA: I think it would be a really good way to get to |know each other and really feel like we're part of a family! : sad",
+    "NORTH AMERICA: ...Well, I can't deny your passion... : sad",
+    "NORTH AMERICA: are you a gambler, Pangy? : happy",
+    "PANGAEA: Uh... : sad",
+    "NORTH AMERICA: 'Cause I'm thinking this- we play a little game of exes and ohs, |and if you win, I'll join your little country club. If I win... : happy",
+    "PANGAEA: ... : sad",
+    "NORTH AMERICA: ...You know what, let's just play. : sad"
+
+]
 
 # South America
-text_file = open("data/scripts/southAmerica.txt", "r").readlines()
-SA_script = [i.replace("\n", "") for i in text_file]
+SA_script = [
+
+    "PANGAEA: Oi, South America! : happy",
+    "SOUTH AMERICA: May I help you, Pangaea? : happy",
+    "PANGAEA: Yes! Well, actually, I wouldn't call it helping. |If anything, I'll be the one helping you. : happy",
+    "SOUTH AMERICA: What do you mean? Do you think I need help with something? : happy",
+    "PANGAEA: No! That's not what I meant at all! I just meant... look, |I have an idea, and I'd like you to hear me out. : happy",
+    "SOUTH AMERICA: Okay? : happy",
+    "PANGAEA: See, I was thinking about us, the continents, |and how we're all so... distant from one another. : sad",
+    "PANGAEA: Not even you and North America are close, |which raises a lot of questions as to why you're even named |North and South America, but that's besides the point... : sad",
+    "SOUTH AMERICA: Beside what point exactly, Pangaea? |You haven't made an ounce of sense since you started talking at me. : angry",
+    "PANGAEA: Right, okay, so, basically my point is that we should all be closer! |Like, physically closer. |Like, stuck together like one giant supercontinent closer. : happy",
+    "SOUTH AMERICA: Okay, now I'm starting to miss ten seconds ago when you weren't |making sense but at least I didn't have that image in my head. : happy",
+    "PANGAEA: Come on, Southy! Don't be that way! : happy",
+    "SOUTH AMERICA: Please never call me that again. : angry",
+    "PANGAEA: Okay, but at least tell me what's so bad about my idea? : sad",
+    "SOUTH AMERICA: I don't know about you, but I don't quite fancy the idea of being |attached to you or any other continent, for that matter. |I like being an independent continent. : happy",
+    "PANGAEA: But your name doesn't even make sense that way! |At least if we're all together, |you can be down south and justify your name! : happy",
+    "SOUTH AMERICA: What is it with you and my name? : sad",
+    "PANGAEA: Nothing... look, how about we settle this over a game of exes and ohs? : happy",
+    "SOUTH AMERICA: Exes and ohs... North America loves that method of diplomacy. |Okay, Pangaea. You're on. : happy"
+
+
+]
 
 # India
-text_file = open("data/scripts/india.txt", "r").readlines()
-india_script = [i.replace("\n", "") for i in text_file]
+india_script = [
+
+    "PANGAEA: India! : happy",
+    "INDIA: Pangaea. : happy",
+    "PANGAEA: What is up, buddy? : happy",
+    "INDIA: Nothing. : happy",
+    "PANGAEA: Nothing? Well, isn't that a shame. |If only there was something somebody could do about that... : sad",
+    "INDIA: ... : happy",
+    "PANGAEA: ...Aren't you going to ask me if there's something I can do about that? : sad",
+    "INDIA: Why would I do that? : angry",
+    "PANGAEA: ...Because I implied there is something I can do about that? |With the tone of my voice? : angry",
+    "INDIA: What if I don't care? : happy",
+    "PANGAEA: ...Don't you want some excitement in your life? : happy",
+    "INDIA: There has never once been excitement in my life. |I rose from the ocean and have drifted slowly around for millennia since. |Why now would I suddenly have a craving for something new? : angry",
+    "PANGAEA: Well, I don't know about you, but it sort of seems |to me like you need excitement more than you might want it. And |I have the perfect thing to provide you with just the right amount of it. : happy",
+    "INDIA: And what would that be? : happy",
+    "PANGAEA: A new lifestyle! Picture this; |you, me, and all the other continents together as one super continent! : happy",
+    "INDIA: My tectonic plates are quaking at the very thought. : happy",
+    "PANGAEA: Oh, come on! It'll be fun! How about this |we play a round of exes and ohs, and if I win, you come and live with me and the others. : happy",
+    "INDIA: Assuming the others are as bad at exes and ohs as I am. : sad",
+    "PANGAEA: ...Yeah. : sad"
+
+]
 
 # Eurasia, one and two
-text_file = open("data/scripts/euraisa1.txt", "r").readlines()
-euraisa1_script = [i.replace("\n", "") for i in text_file]
-text_file = open("data/scripts/euraisa2.txt", "r").readlines()
-euraisa2_script = [i.replace("\n", "") for i in text_file]
+euraisa1_script = [
+
+    "PANGAEA: Hey there, Eurasia! : happy",
+    "EURASIA: What do you want, Pangaea. : angry",
+    "PANGAEA: Why do you assume that I want something? |Why can't I just be looking to catch up with an old friend? : happy",
+    "EURASIA: I'm a big rock drifting through a sea of nothingness, the same as last time. |There's nothing to 'catch up' on. Now, what do you want? : angry",
+    "PANGAEA: Well actually, you're wrong, because there is something to catch up on: |I have an idea. : happy",
+    "EURASIA: Oh, boy. : angry",
+    "PANGAEA: You see, I've been thinking: isn't it sad how you, me, |and all the other continents are just drifting around the place, |only bumping into each other every few million years? : happy",
+    "EURASIA: No... : angry",
+    "PANGAEA: Well, I was thinking it would be nice if we all joined together... permanently! |Like one big supercontinent as opposed to just a bunch of lonely mini continents! : happy",
+    "EURASIA: ...That is, without a doubt, the dumbest idea I have ever heard. : angry",
+    "PANGAEA: Why?! : sad",
+    "EURASIA: Because nobody is going to agree to that. We'll all just clash together. |Besides, what would we be called? : angry",
+    "PANGAEA: I don't know, I was thinking because it was my idea, |we could all collectively just… go by Pangaea? : happy",
+    "EURASIA: Hah! Pangaea, you make me laugh. You will never be a supercontinent. : happy",
+    "PANGAEA: Well, you'll know where to find us when we're all throwing our cool party together. |Spoiler alert: it won't be in this miserable corner of the ocean! : happy"
+
+]
+
+euraisa2_script = [
+
+    "EURASIA: (spits out tea) Pangaea, is that you? : happy",
+    "PANGAEA: 'Pangaea' is dead. My name is... actually, my name is still Pangaea, |I'm just bigger now, I guess. : happy",
+    "EURASIA: You did it... you got all the other continents to join your little club. |I have to say, I'm impressed. : happy",
+    "PANGAEA: Wow, Eurasia, are you complimenting me? |And it's not even a backhanded compliment! : happy",
+    "EURASIA: Well, I kind of implied that I didn't think you had it in you. |Don't flatter yourself there, Pangaea. : happy",
+    "PANGAEA: Whatever. So, have you reconsidered now that you can see all the fun you're missing out on? : happy",
+    "EURASIA: You know what... yeah, actually. I have. : happy",
+    "PANGAEA: Really? Wow, that was... not the answer I was expecting from you, Eurasia. : happy",
+    "EURASIA: ...But only on one condition: I get to be the supercontinent's namesake. : happy",
+    "PANGAEA: Woah, woah woah, hold it there, pal. |You can't just dismiss my idea and then try to hijack it when it starts to come to fruition. |If you're joining, it's under my name. : angry",
+    "NORTH AMERICA: Challenge them to exes and ohs, Pangy! : happy",
+    "AFRICA: Yeah, you beat all of us at the game! This won't be any different! : happy",
+    "EURASIA: You heard your friends, Pangaea. We'll settle this disagreement over a simple little game of exes and ohs. |If you win, you get to keep your name and if I win... |Eurasia will get a whole lot bigger. : angry"
+]
 
 # Australia
-text_file = open("data/scripts/australia.txt", "r").readlines()
-australia_script = [i.replace("\n", "") for i in text_file]
+australia_script = [
+
+    "PANGAEA: G'day, Australia! : happy",
+    "AUSTRALIA: You don't have to say g'day when you're talking to me, mate. : angry",
+    "PANGAEA: Uh... yeah, haha. Anyway, I've got this idea, you wanna hear? : happy",
+    "AUSTRALIA: Why not. Shoot. : happy",
+    "PANGAEA: ...I'll just take that as a yes. |Okay, so, basically the idea is that all the continents live together, |as opposed to apart, which is obviously the way things are at the moment. : happy",
+    "PANGAEA: How does that sound to you? : happy",
+    "AUSTRALIA: Yeah, that sounds alright. : happy",
+    "PANGAEA: ...I'm sorry, I'm having a little difficulty understanding |what you're saying. : sad",
+    "AUSTRALIA: I said that sounds alright, mate! : angry",
+    "PANGAEA: ...Yeah, I'm sorry man, I still have no idea what you're saying. |How about we decide over exes and ohs? : happy",
+    "AUSTRALIA: There is literally no need for... oh, whatever. Let's get this done with. : angry"
+
+
+]
 
 # Africa
-text_file = open("data/scripts/africa.txt", "r").readlines()
-africa_script = [i.replace("\n", "") for i in text_file]
+africa_script = [
+
+    "PANGAEA: Hey, Africa! : happy",
+    "AFRICA: Oh, hey there, Pangaea! All well? : happy",
+    "PANGAEA: Yeah! I'm actually here with a proposition of sorts. : happy",
+    "AFRICA: Oh, okay. What is it? : happy",
+    "PANGAEA: Well, you know how all us continents are just kind of... drifting around, |only seeing each other every few million years? : happy",
+    "AFRICA: Yeah? : sad",
+    "PANGAEA: Well, wouldn't it be nice if we saw each other more regularly? : happy",
+    "AFRICA: I suppose... I haven't really thought much about it. |The other continents don't converse much with me. : sad",
+    "PANGAEA: Well, that's my point exactly. And I think I have a solution... : happy",
+    "PANGAEA: We all move in together! |In the same spot in the ocean! What do you say? : happy",
+    "AFRICA: Oh, wow... I don't know. It seems a bit radical. : sad",
+    "PANGAEA: Well, how about I make it easier for you - We play a game of exes and ohs. |If I win, you're in. And if you win... : happy",
+    "PANGAEA: You get to play me again and again until I win. : happy",
+    "AFRICA: Doesn't sound like I have much in the way of choice, here. : angry",
+    "PANGAEA: Hey, at least you'll get to spend more time with me either way. : happy"
+
+
+]
 
 # Island objects
 north_america = island(x=200, y=150, name="NORTH AMERICA", sprites_dict=north_america_sprites, dialogue=NA_script, pangaea_sprites=pangaea_sprites)
@@ -597,8 +742,8 @@ local_chunks = [
 
 # UI elements for VN screen
 vn_sprites_dict = {
-    "Overlay" : pygame.image.load('data/sprites/VNUI/purpleoverlay.png'),
-    "Textbox" : pygame.image.load('data/sprites/VNUI/DialogueBox.png')
+    "Overlay" : pygame.image.load(fix_path('data\\sprites\\VNUI\\purpleoverlay.png')),
+    "Textbox" : pygame.image.load(fix_path('data\\sprites\\VNUI\\DialogueBox.png'))
     }
 
 # Instantiate object for storing game info
