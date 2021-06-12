@@ -51,6 +51,15 @@ class game_info():
         else:
             self.nonepressed = False
 
+        self.update_info()
+
+    def update_info(self):
+        if self.game_state == 2:
+            self.char_pos = (self.win_w - 250, 350)
+
+        else:
+            self.char_pos = (self.win_w - 500, 100)
+
     # Function for updating various aspects of the UI
     def update_VNUI(self):
 
@@ -125,6 +134,7 @@ class game_info():
     def minigame_update(self):
 
         self.win.blit(self.vn_sprites["Overlay"], (self.overlay_x[0], 0))
+        self.chunks[self.current_chunk].country.update_character(game)
 
         positions = self.xo_positions
 
@@ -187,17 +197,18 @@ class island():
 
             # Split dialogue on a colon to get both the speaker and their dialogue
             t = text.split(":")
-            print(t)
 
+            # # Appending all the information about the speaker and emotion to some lists
             self.dialogue_emotion.append(t[2].replace(" ", ""))
             self.dialogue_speaker_text.append(t[0])
             self.dialogue_speaker.append(dialogue_font.render(t[0], True, (40, 40, 155)))
 
+            # Splitting dialogue on | to form newlines
             dialogue_text = t[1].split("|")
             label = []
             for line in dialogue_text:
                 label.append(dialogue_font.render(line, True, (0, 0, 0)))
-            self.dialogue_obj.append(label) # list of lines in that dialogue
+            self.dialogue_obj.append(label) # List of lines in that dialogue
 
         # If space key was pressed last frame
         self.space_key_buffer = False
@@ -232,16 +243,23 @@ class island():
         if game.keys[pygame.K_SPACE] and game.game_state == 0:
             game.VN_init()
 
+    # Update
     def update_character(self, game):
-        try:
-            if self.dialogue_speaker_text[self.dialogue_index] == "PANGAEA":
-                game.win.blit(self.pangaea_sprites[self.dialogue_emotion[self.dialogue_index]], game.char_pos)
-            else:
-                game.win.blit(self.sprites[self.dialogue_emotion[self.dialogue_index]], game.char_pos)
-        except IndexError:
-            pass
+        if game.game_state == 1:
+            try:
+                if self.dialogue_speaker_text[self.dialogue_index] == "PANGAEA":
+                    game.win.blit(self.pangaea_sprites[self.dialogue_emotion[self.dialogue_index]], game.char_pos)
+                else:
+                    game.win.blit(self.sprites[self.dialogue_emotion[self.dialogue_index]], game.char_pos)
+            except IndexError:
+                pass
 
-    # Update draw
+        elif game.game_state == 2:
+            game.win.blit(self.sprites["angry"], game.char_pos)
+        else:
+            return
+
+    # Function for drawing the island in the ocean
     def update_draw(self, game):
         game.win.blit(self.sprites[self.status], (self.x, self.y + self.y_mod))
 
@@ -577,6 +595,7 @@ local_chunks = [
     map_chunk(index=8, name="Bottom-Right", country=australia, borders_dict={"Left" : True, "Right" : False, "Up" : True, "Down" : False}, bg=sea_var)
 ]
 
+# UI elements for VN screen
 vn_sprites_dict = {
     "Overlay" : pygame.image.load('data/sprites/VNUI/purpleoverlay.png'),
     "Textbox" : pygame.image.load('data/sprites/VNUI/DialogueBox.png')
