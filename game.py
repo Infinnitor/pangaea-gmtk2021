@@ -776,8 +776,8 @@ euraisa2_script = [
     "EURASIA: You heard your friends, Pangaea. We'll settle this disagreement over a |simple little game of exes and ohs. |If you win, you get to keep your name and if I win... |Eurasia will get a whole lot bigger. : angry"
 ]
 euraisa3_script = [
-    "EURASIA: I see you're still at that hair-brained scheme of yours, Pangaea. Face it, you're never going to convince everyone to go along with it. : happy",
-    "PANGAEA: You're just jealous you didn't come up with it first. Places are still open if you change your mind. : angry",
+    "EURASIA: I see you're still at that hair-brained scheme of yours, Pangaea. |Face it, you're never going to convince everyone to go along with it. : happy",
+    "PANGAEA: You're just jealous you didn't come up with it first. |Places are still open if you change your mind. : angry",
     "EURASIA: I'd faster split into two continents than merge with you. : angry"
 ]
 
