@@ -17,7 +17,7 @@ island that wants to be a continent
 
 # Things to do
 [x] win / lose at x and os
-- have countries join together when you win
+[x] have countries join together when you win
 - start menu
 - start prologue
 - ending

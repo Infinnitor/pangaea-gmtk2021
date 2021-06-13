@@ -96,7 +96,7 @@ class game_info():
 
     # Function for initialising overlay and changing game state
     def VN_init(self):
-        self.overlay_x = [0 - self.vn_sprites["Overlay"].get_size()[0], 15]
+        self.overlay_x = [0 - self.vn_sprites["Overlay"].get_size()[0], 20]
 
         self.textbox_y = [self.win_h, 5]
         self.textbox_still = False
@@ -155,13 +155,15 @@ class game_info():
 
         if self.mouse[0]:
             for i, square in enumerate(self.xo_board):
+                if(self.xo_turn == "O"):
+                    if(random.randint(0,4) == 2):
+                        if self.xo_board[i] == "None":
+                            self.xo_board[i] = "O"
+                            self.xo_turn = "X"
                 if mouse_check((positions[i][0], positions[i][1]), (positions[i][0] + self.xo_square_side, positions[i][1] + self.xo_square_side), self.mouse_pos):
                     if self.xo_board[i] == "None":
-                        self.xo_board[i] = self.xo_turn
-                        if self.xo_turn == "X":
-                            self.xo_turn = "O"
-                        else:
-                            self.xo_turn = "X"
+                        self.xo_board[i] = "X"
+                        self.xo_turn = "O"
 
         def checkwin():
             nonecounter = 0
