@@ -207,7 +207,8 @@ class game_info():
         if(checkwin() == "X"):
             # you win
             print("X won")
-            pangea.gained_countries.append(self.chunks[self.current_chunk].country)
+            pangea.gained_countries.append(self.chunks[self.current_chunk].country.name)
+            self.chunks[self.current_chunk].country = None
             self.game_state = 0
         elif(checkwin() == "O"):
             # they win
@@ -328,7 +329,7 @@ class island():
         game.win.blit(self.sprites[self.status], (self.x, self.y + self.y_mod))
 
         image_width = self.sprites[self.status].get_size()[0]
-        game.win.blit(self.sprites["SpeechBubble"], (self.x + image_width, self.y - (self.y // 3) + self.y_mod))
+        game.win.blit(self.sprites["SpeechBubble"], (self.x + image_width, self.y + (self.y // 5) + self.y_mod))
 
     # Function for adding a small bob to the island
     def bob(self):
@@ -539,7 +540,20 @@ class player():
     def update_draw(self, game):
         # Hitbox for island
         # pygame.draw.rect(game.win, (155, 40, 40), (self.x, self.y, self.width, self.height))
+        print(self.gained_countries)
 
+        if("AUSTRALIA" in self.gained_countries):
+            game.win.blit(australia_sprites["Head"], (self.x + 160, self.y + self.y_mod))
+        if("AFRICA" in self.gained_countries):
+            game.win.blit(africa_sprites["Head"], (self.x - 20, self.y + self.y_mod - 210))
+        if("INDIA" in self.gained_countries):
+            game.win.blit(india_sprites["Head"], (self.x + 130, self.y + self.y_mod - 150))
+        if("SOUTH AMERICA" in self.gained_countries):
+            game.win.blit(south_america_sprites["Head"], (self.x - 170, self.y + self.y_mod - 150))
+        if("NORTH AMERICA" in self.gained_countries):
+            game.win.blit(north_america_sprites["Head"], (self.x - 120, self.y + self.y_mod - 350))
+        if("EURASIA" in self.gained_countries):
+            game.win.blit(euraisa_sprites["Head"], (self.x - 60, self.y + self.y_mod - 400))
         # If the sprite is facing right then it does not need to be flipped
         blit_sprite = self.sprites[self.sprite_status]
 
