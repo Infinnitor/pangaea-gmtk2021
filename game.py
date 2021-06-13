@@ -37,7 +37,7 @@ class game_info():
         self.waves_sprites = waves_dict
 
         # Game state, 0 - exploration, 1 - VN, 2 - minigame
-        self.game_state = 0
+        self.game_state = -1
 
         self.vn_sprites = vn_sprites
         self.char_pos = (self.win_w - 500, 100)
@@ -104,7 +104,9 @@ class game_info():
         self.game_state = 1
 
     # Function called by player when current chunk needs to be changed
-    def change_chunk(self, direction):
+    def change_chunk(self, direction, player):
+        if(len(player.gained_countries) > 4):
+            self.chunks[1].country = euraisa2 # if you have all the countries then boom changed
 
         # Changes the current_chunk variable based on the given border that the player is crossing
         if direction == "Left":
@@ -136,6 +138,13 @@ class game_info():
                 self.xo_positions.append((x * (sq_side + sq_side // 4) + offset_x, y * (sq_side + sq_side // 4) + offset_y))
 
     def minigame_update(self):
+        if(self.current_chunk == 4): # prologue escape
+            self.chunks[self.current_chunk].country = None
+            self.game_state = 0
+            return
+        if(self.chunks[self.current_chunk].country == euraisa3):
+            self.game_state = 0
+            return
 
         self.win.blit(self.vn_sprites["Overlay"], (self.overlay_x[0], 0))
         self.chunks[self.current_chunk].country.update_character(game)
@@ -219,6 +228,7 @@ class game_info():
         elif(checkwin() == "Draw"):
             #bruh
             print("Draw")
+            self.game_state = 0
             pass
 
 # Class for islands that appear in chunks
@@ -333,6 +343,8 @@ class island():
         image_width = self.sprites[self.status].get_size()[0]
         game.win.blit(self.sprites["SpeechBubble"], (self.x + image_width, self.y + (self.y // 5) + self.y_mod))
 
+        if game.game_state == 0:
+            self.dialogue_index = 0
     # Function for adding a small bob to the island
     def bob(self):
 
@@ -496,7 +508,7 @@ class player():
                 self.y = 0
 
             # Calls the change_chunk() function with information about current border
-            game.change_chunk(on_border)
+            game.change_chunk(on_border, self)
 
         # If up and down are not pressed, then the island can play the bobbing animation
         if not any((game.keys[pygame.K_UP], game.keys[pygame.K_DOWN])):
@@ -647,6 +659,7 @@ xo_sprite_dict = {
     "O" : pygame.image.load(fix_path("data\\sprites\\ICONS\\o.png")),
 }
 
+startmenu = pygame.image.load(fix_path("data\\sprites\\ICONS\\title.png"))
 # North America
 NA_script = [
 
@@ -729,9 +742,9 @@ euraisa1_script = [
     "EURASIA: What do you want, Pangaea. : angry",
     "PANGAEA: Why do you assume that I want something? |Why can't I just be looking to catch up with an old friend? : happy",
     "EURASIA: I'm a big rock drifting through a sea of nothingness, the same as last time. |There's nothing to 'catch up' on. Now, what do you want? : angry",
-    "PANGAEA: Well actually, you're wrong, because there is something to catch up on: |I have an idea. : happy",
+    "PANGAEA: Well actually, you're wrong, because there is something to catch up on |I have an idea. : happy",
     "EURASIA: Oh, boy. : angry",
-    "PANGAEA: You see, I've been thinking: isn't it sad how you, me, |and all the other continents are just drifting around the place, |only bumping into each other every few million years? : happy",
+    "PANGAEA: You see, I've been thinking,| isn't it sad how you, me, |and all the other continents are just drifting around the place, |only bumping into each other every few million years? : happy",
     "EURASIA: No... : angry",
     "PANGAEA: Well, I was thinking it would be nice if we all joined together... permanently! |Like one big supercontinent as opposed to just a bunch of lonely mini continents! : happy",
     "EURASIA: ...That is, without a doubt, the dumbest idea I have ever heard. : angry",
@@ -739,7 +752,7 @@ euraisa1_script = [
     "EURASIA: Because nobody is going to agree to that. We'll all just clash together. |Besides, what would we be called? : angry",
     "PANGAEA: I don't know, I was thinking because it was my idea, |we could all collectively just… go by Pangaea? : happy",
     "EURASIA: Hah! Pangaea, you make me laugh. You will never be a supercontinent. : happy",
-    "PANGAEA: Well, you'll know where to find us when we're all throwing our cool party together. |Spoiler alert: it won't be in this miserable corner of the ocean! : happy"
+    "PANGAEA: Well, you'll know where to find us when we're all throwing our cool party together. |Spoiler alert - it won't be in this miserable corner of the ocean! : happy"
 
 ]
 
@@ -753,7 +766,7 @@ euraisa2_script = [
     "PANGAEA: Whatever. So, have you reconsidered now that you can see all the fun you're missing out on? : happy",
     "EURASIA: You know what... yeah, actually. I have. : happy",
     "PANGAEA: Really? Wow, that was... not the answer I was expecting from you, Eurasia. : happy",
-    "EURASIA: ...But only on one condition: I get to be the supercontinent's namesake. : happy",
+    "EURASIA: ...But only on one condition| I get to be the supercontinent's namesake. : happy",
     "PANGAEA: Woah, woah woah, hold it there, pal. |You can't just dismiss my idea and then try to hijack it when it starts to come to fruition. |If you're joining, it's under my name. : angry",
     "NORTH AMERICA: Challenge them to exes and ohs, Pangy! : happy",
     "AFRICA: Yeah, you beat all of us at the game! This won't be any different! : happy",
@@ -806,14 +819,18 @@ south_america = island(x=200, y=150, name="SOUTH AMERICA", sprites_dict=south_am
 africa = island(x=800, y=300, name="AFRICA", sprites_dict=africa_sprites, dialogue=africa_script, pangaea_sprites=pangaea_sprites)
 india = island(x=800, y=300, name="INDIA", sprites_dict=india_sprites, dialogue=india_script, pangaea_sprites=pangaea_sprites)
 australia = island(x=500, y=300, name="AUSTRALIA", sprites_dict=australia_sprites, dialogue=australia_script, pangaea_sprites=pangaea_sprites)
+euraisa = island(x=500, y=300, name="", sprites_dict=euraisa_sprites, dialogue=euraisa1_script, pangaea_sprites=pangaea_sprites)
+euraisa2 = island(x=500, y=300, name="EURASIA", sprites_dict=euraisa_sprites, dialogue=euraisa2_script, pangaea_sprites=pangaea_sprites)
+euraisa3 = island(x=500, y=300, name="EURASIA", sprites_dict=euraisa_sprites, dialogue=euraisa1_script, pangaea_sprites=pangaea_sprites)
+# euraisa2 is final battle, 3 is talking before you have all the countries
 
 # List of chunks generated when they are instantiated
 local_chunks = [
-    map_chunk(index=0, name="Top-Left", country=south_america, borders_dict={"Left" : False, "Right" : True, "Up" : False, "Down" : True}, bg=sea_var),
-    map_chunk(index=1, name="Top-Middle", country=north_america, borders_dict={"Left": True, "Right": True, "Up": False, "Down": True}, bg=sea_var),
+    map_chunk(index=0, name="Top-Left", country=north_america, borders_dict={"Left" : False, "Right" : True, "Up" : False, "Down" : True}, bg=sea_var),
+    map_chunk(index=1, name="Top-Middle", country=euraisa3, borders_dict={"Left": True, "Right": True, "Up": False, "Down": True}, bg=sea_var),
     map_chunk(index=2, name="Top-Right", country=None, borders_dict={"Left" : True, "Right" : False, "Up" : False, "Down" : True}, bg=sea_var),
-    map_chunk(index=3, name="Middle-Left", country=None, borders_dict={"Left" : False, "Right" : True, "Up" : True, "Down" : True}, bg=sea_var),
-    map_chunk(index=4, name="Middle-Middle", country=None, borders_dict={"Left": True, "Right": True, "Up": True, "Down": True}, bg=sea_var),
+    map_chunk(index=3, name="Middle-Left", country=south_america, borders_dict={"Left" : False, "Right" : True, "Up" : True, "Down" : True}, bg=sea_var),
+    map_chunk(index=4, name="Middle-Middle", country=euraisa, borders_dict={"Left": True, "Right": True, "Up": True, "Down": True}, bg=sea_var),
     map_chunk(index=5, name="Middle-Right", country=africa, borders_dict={"Left" : True, "Right" : False, "Up" : True, "Down" : True}, bg=sea_var),
     map_chunk(index=6, name="Bottom-Left", country=None, borders_dict={"Left" : False, "Right" : True, "Up" : True, "Down" : False}, bg=sea_var),
     map_chunk(index=7, name="Bottom-Middle", country=india, borders_dict={"Left": True, "Right": True, "Up": True, "Down": False}, bg=sea_var),
@@ -846,21 +863,27 @@ while game.run:
     # Update which keys are pressed down by the user
     game.update_keys()
 
-    # Draw the current chunk
-    game.chunks[game.current_chunk].update_draw(game)
+    if(game.game_state == -1):
+        # show start screen
+        game.win.blit(startmenu, (0,0))
+        if(game.keys[pygame.K_SPACE]):
+            game.game_state = 0
+    else:
+        # Draw the current chunk
+        game.chunks[game.current_chunk].update_draw(game)
 
-    # Update the player character's movement and draw them
-    pangea.update_move(game)
-    pangea.update_draw(game)
+        # Update the player character's movement and draw them
+        pangea.update_move(game)
+        pangea.update_draw(game)
 
-    if game.game_state == 1:
-        # VN TIME
-        game.update_VNUI()
+        if game.game_state == 1:
+            # VN TIME
+            game.update_VNUI()
 
-    if game.game_state == 2:
-        # minigame time
-        game.minigame_update()
-        pass
+        if game.game_state == 2:
+            # minigame time
+            game.minigame_update()
+            pass
 
     # Check for closing of window
     for event in pygame.event.get():
