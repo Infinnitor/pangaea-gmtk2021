@@ -189,6 +189,7 @@ class island():
         # Variables for tracking dialogue info across multiple frames
         self.dialogue_index = 0
 
+        self.upsidedown = False
         # THE font
         dialogue_font = pygame.font.Font(fix_path("data\\Roboto.ttf"), 35)
 
@@ -225,6 +226,9 @@ class island():
             game.win.blit(self.dialogue_speaker[self.dialogue_index], (80, game.textbox_y[0] + 15))
 
             for i, line in enumerate(self.dialogue_obj[self.dialogue_index]):
+                if(self.upsidedown):
+                    game.win.blit(pygame.transform.flip(line, False, True), (50, game.textbox_y[0] + 70 + (50*i)))
+                    continue
                 game.win.blit(line, (50, game.textbox_y[0] + 70 + (50*i)))
 
         except IndexError:
@@ -249,10 +253,15 @@ class island():
 
     # Update
     def update_character(self, game):
+        self.upsidedown = False
         if game.game_state == 1:
             try:
                 if self.dialogue_speaker_text[self.dialogue_index] == "PANGAEA":
                     game.win.blit(self.pangaea_sprites[self.dialogue_emotion[self.dialogue_index]], game.char_pos)
+                elif self.dialogue_speaker_text[self.dialogue_index] == "AUSTRALIA":
+                    self.upsidedown = True
+                    game.win.blit(self.sprites[self.dialogue_emotion[self.dialogue_index]], game.char_pos)
+                    pass
                 else:
                     game.win.blit(self.sprites[self.dialogue_emotion[self.dialogue_index]], game.char_pos)
             except IndexError:
