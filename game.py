@@ -207,6 +207,7 @@ class game_info():
         if(checkwin() == "X"):
             # you win
             print("X won")
+            pangea.gained_countries.append(self.chunks[self.current_chunk].country)
             self.game_state = 0
         elif(checkwin() == "O"):
             # they win
