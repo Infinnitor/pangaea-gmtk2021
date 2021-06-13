@@ -1,4 +1,3 @@
-
 from os import environ
 environ['PYGAME_HIDE_SUPPORT_PROMPT'] = "hide"
 
@@ -326,6 +325,10 @@ class island():
                 elif self.dialogue_speaker_text[self.dialogue_index] == "AUSTRALIA":
                     self.upsidedown = True
                     game.win.blit(self.sprites[self.dialogue_emotion[self.dialogue_index]], game.char_pos)
+                elif self.dialogue_speaker_text[self.dialogue_index] == "AFRICA":
+                    game.win.blit(africa_sprites[self.dialogue_emotion[self.dialogue_index]], game.char_pos)
+                elif self.dialogue_speaker_text[self.dialogue_index] == "NORTH AMERICA":
+                    game.win.blit(north_america_sprites[self.dialogue_emotion[self.dialogue_index]], game.char_pos)
                 else:
                     game.win.blit(self.sprites[self.dialogue_emotion[self.dialogue_index]], game.char_pos)
             except IndexError:
@@ -729,7 +732,7 @@ india_script = [
     "INDIA: And what would that be? : happy",
     "PANGAEA: A new lifestyle! Picture this; |you, me, and all the other continents together as one super continent! : happy",
     "INDIA: My tectonic plates are quaking at the very thought. : happy",
-    "PANGAEA: Oh, come on! It'll be fun! How about this |we play a round of exes and ohs, and if I win, you come and live with me and the others. : happy",
+    "PANGAEA: Oh, come on! It'll be fun! How about this |we play a round of exes and ohs, and if I win, |you come and live with me and the others. : happy",
     "INDIA: Assuming the others are as bad at exes and ohs as I am. : sad",
     "PANGAEA: ...Yeah. : sad"
 
@@ -746,13 +749,13 @@ euraisa1_script = [
     "EURASIA: Oh, boy. : angry",
     "PANGAEA: You see, I've been thinking,| isn't it sad how you, me, |and all the other continents are just drifting around the place, |only bumping into each other every few million years? : happy",
     "EURASIA: No... : angry",
-    "PANGAEA: Well, I was thinking it would be nice if we all joined together... permanently! |Like one big supercontinent as opposed to just a bunch of lonely mini continents! : happy",
+    "PANGAEA: Well, I was thinking it would be nice if we all joined together... permanently! |Like one big supercontinent as opposed to just a |bunch of lonely mini continents! : happy",
     "EURASIA: ...That is, without a doubt, the dumbest idea I have ever heard. : angry",
     "PANGAEA: Why?! : sad",
     "EURASIA: Because nobody is going to agree to that. We'll all just clash together. |Besides, what would we be called? : angry",
     "PANGAEA: I don't know, I was thinking because it was my idea, |we could all collectively just… go by Pangaea? : happy",
     "EURASIA: Hah! Pangaea, you make me laugh. You will never be a supercontinent. : happy",
-    "PANGAEA: Well, you'll know where to find us when we're all throwing our cool party together. |Spoiler alert - it won't be in this miserable corner of the ocean! : happy"
+    "PANGAEA: Well, you'll know where to find us when we're all throwing our cool |party together. |Spoiler alert - it won't be in this miserable corner of the ocean! : happy"
 
 ]
 
@@ -763,14 +766,19 @@ euraisa2_script = [
     "EURASIA: You did it... you got all the other continents to join your little club. |I have to say, I'm impressed. : happy",
     "PANGAEA: Wow, Eurasia, are you complimenting me? |And it's not even a backhanded compliment! : happy",
     "EURASIA: Well, I kind of implied that I didn't think you had it in you. |Don't flatter yourself there, Pangaea. : happy",
-    "PANGAEA: Whatever. So, have you reconsidered now that you can see all the fun you're missing out on? : happy",
+    "PANGAEA: Whatever. So, have you reconsidered now that you can see all |the fun you're missing out on? : happy",
     "EURASIA: You know what... yeah, actually. I have. : happy",
     "PANGAEA: Really? Wow, that was... not the answer I was expecting from you, Eurasia. : happy",
     "EURASIA: ...But only on one condition| I get to be the supercontinent's namesake. : happy",
-    "PANGAEA: Woah, woah woah, hold it there, pal. |You can't just dismiss my idea and then try to hijack it when it starts to come to fruition. |If you're joining, it's under my name. : angry",
+    "PANGAEA: Woah, woah woah, hold it there, pal. |You can't just dismiss my idea and then try to hijack it when it starts |to come to fruition. If you're joining, it's under my name. : angry",
     "NORTH AMERICA: Challenge them to exes and ohs, Pangy! : happy",
     "AFRICA: Yeah, you beat all of us at the game! This won't be any different! : happy",
-    "EURASIA: You heard your friends, Pangaea. We'll settle this disagreement over a simple little game of exes and ohs. |If you win, you get to keep your name and if I win... |Eurasia will get a whole lot bigger. : angry"
+    "EURASIA: You heard your friends, Pangaea. We'll settle this disagreement over a |simple little game of exes and ohs. |If you win, you get to keep your name and if I win... |Eurasia will get a whole lot bigger. : angry"
+]
+euraisa3_script = [
+    "EURASIA: I see you're still at that hair-brained scheme of yours, Pangaea. Face it, you're never going to convince everyone to go along with it. : happy",
+    "PANGAEA: You're just jealous you didn't come up with it first. Places are still open if you change your mind. : angry",
+    "EURASIA: I'd faster split into two continents than merge with you. : angry"
 ]
 
 # Australia
@@ -821,7 +829,7 @@ india = island(x=800, y=300, name="INDIA", sprites_dict=india_sprites, dialogue=
 australia = island(x=500, y=300, name="AUSTRALIA", sprites_dict=australia_sprites, dialogue=australia_script, pangaea_sprites=pangaea_sprites)
 euraisa = island(x=500, y=300, name="", sprites_dict=euraisa_sprites, dialogue=euraisa1_script, pangaea_sprites=pangaea_sprites)
 euraisa2 = island(x=500, y=300, name="EURASIA", sprites_dict=euraisa_sprites, dialogue=euraisa2_script, pangaea_sprites=pangaea_sprites)
-euraisa3 = island(x=500, y=300, name="EURASIA", sprites_dict=euraisa_sprites, dialogue=euraisa1_script, pangaea_sprites=pangaea_sprites)
+euraisa3 = island(x=500, y=300, name="EURASIA", sprites_dict=euraisa_sprites, dialogue=euraisa3_script, pangaea_sprites=pangaea_sprites)
 # euraisa2 is final battle, 3 is talking before you have all the countries
 
 # List of chunks generated when they are instantiated

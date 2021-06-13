@@ -18,8 +18,9 @@ island that wants to be a continent
 # Things to do
 [x] win / lose at x and os
 [x] have countries join together when you win
-- start menu
-- start prologue
+[x] start menu
+[x] start prologue
+[x] euraisa script before you collect all countries
 - ending
 - export
 
