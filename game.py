@@ -151,13 +151,11 @@ class game_info():
             return False
 
         for i, square in enumerate(self.xo_board):
-
             self.win.blit(self.xo_sprites[square], (positions[i][0], positions[i][1]))
 
         if self.mouse[0]:
             for i, square in enumerate(self.xo_board):
                 if mouse_check((positions[i][0], positions[i][1]), (positions[i][0] + self.xo_square_side, positions[i][1] + self.xo_square_side), self.mouse_pos):
-
                     if self.xo_board[i] == "None":
                         self.xo_board[i] = self.xo_turn
                         if self.xo_turn == "X":
@@ -165,6 +163,59 @@ class game_info():
                         else:
                             self.xo_turn = "X"
 
+        def checkwin():
+            nonecounter = 0
+            # check if 3 in a row
+            # possible combinations:
+            # 3 horizontal, 3 vertical, 2 diagonal
+            for l in range(9):
+                # horizontal
+                # get left most tile
+                # check if the two next to it are the same
+                # done
+                if(l%3 == 0 and self.xo_board[l] != "None"):
+                    if(self.xo_board[l] == self.xo_board[l+1] == self.xo_board[l+2]):
+                        return self.xo_board[l]
+
+                # vertical
+                # get top most tile
+                # check if the two below it are the same
+                if(l < 3 and self.xo_board[l] != "None"):
+                    if(self.xo_board[l] == self.xo_board[l+3] == self.xo_board[l+6]):
+                        return self.xo_board[l]
+
+                # diagonal
+                # get top left tile
+                # check the diagonals
+                if(self.xo_board[0] == self.xo_board[4] == self.xo_board[8] != "None"):
+                    return self.xo_board[0]
+
+                if(self.xo_board[2] == self.xo_board[4] == self.xo_board[6] != "None"):
+                    return self.xo_board[2]
+
+                # if draw
+                if(l == 0):
+                    nonecounter = 0
+                if(self.xo_board[l] == "None"):
+                    nonecounter += 1
+                if(l == 8):
+                    # print(nonecounter)
+                    if(nonecounter == 0):
+                        return "Draw"
+            return "None"
+        # checkwin()
+        if(checkwin() == "X"):
+            # you win
+            print("X won")
+            self.game_state = 0
+        elif(checkwin() == "O"):
+            # they win
+            print("O won")
+            self.game_state = 0
+        elif(checkwin() == "Draw"):
+            #bruh
+            print("Draw")
+            pass
 
 # Class for islands that appear in chunks
 class island():
@@ -261,7 +312,6 @@ class island():
                 elif self.dialogue_speaker_text[self.dialogue_index] == "AUSTRALIA":
                     self.upsidedown = True
                     game.win.blit(self.sprites[self.dialogue_emotion[self.dialogue_index]], game.char_pos)
-                    pass
                 else:
                     game.win.blit(self.sprites[self.dialogue_emotion[self.dialogue_index]], game.char_pos)
             except IndexError:
@@ -399,6 +449,8 @@ class player():
         # Making a cool wave to bob the island up and down
         self.wave_x = 0
         self.y_mod = 0
+
+        self.gained_countries = [] # list of countries they have beaten in x's and o's
 
     # Function for updating movement of player
     def update_move(self, game):

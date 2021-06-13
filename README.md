@@ -16,7 +16,7 @@ island that wants to be a continent
 - [x] exes and ohs (by elle king)
 
 # Things to do
-- win / lose at x and os
+[x] win / lose at x and os
 - have countries join together when you win
 - start menu
 - start prologue
