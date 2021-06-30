@@ -162,7 +162,7 @@ class game_info():
         if self.mouse[0]:
             for i, square in enumerate(self.xo_board):
                 if(self.xo_turn == "O"):
-                    if(random.randint(0,4) == 2):
+                    if(random.randint(0, 4) == 2):
                         if self.xo_board[i] == "None":
                             self.xo_board[i] = "O"
                             self.xo_turn = "X"
@@ -181,7 +181,7 @@ class game_info():
                 # get left most tile
                 # check if the two next to it are the same
                 # done
-                if(l%3 == 0 and self.xo_board[l] != "None"):
+                if(l % 3 == 0 and self.xo_board[l] != "None"):
                     if(self.xo_board[l] == self.xo_board[l+1] == self.xo_board[l+2]):
                         return self.xo_board[l]
 
@@ -223,10 +223,11 @@ class game_info():
             print("O won")
             self.game_state = 0
         elif(checkwin() == "Draw"):
-            #bruh
+            # bruh
             print("Draw")
             self.game_state = 0
             pass
+
 
 # Class for islands that appear in chunks
 class island():
@@ -346,6 +347,7 @@ class island():
 
         if game.game_state == 0:
             self.dialogue_index = 0
+
     # Function for adding a small bob to the island
     def bob(self):
 
@@ -871,7 +873,7 @@ while game.run:
 
     if(game.game_state == -1):
         # show start screen
-        game.win.blit(startmenu, (0,0))
+        game.win.blit(startmenu, (0, 0))
         if(game.keys[pygame.K_SPACE]):
             game.game_state = 0
     else:
