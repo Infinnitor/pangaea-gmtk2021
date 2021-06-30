@@ -16,13 +16,13 @@ island that wants to be a continent
 - [x] exes and ohs (by elle king)
 
 # Things to do
-[x] win / lose at x and os
-[x] have countries join together when you win
-[x] start menu
-[x] start prologue
-[x] euraisa script before you collect all countries
+- [x] win / lose at x and os
+- [x] have countries join together when you win
+- [x] start menu
+- [x] start prologue
+- [x] euraisa script before you collect all countries
 - ending
-- export
+- [x] export
 
 # Joined together
 pyinstaller game.py --onefile --noconsole
@@ -52,7 +52,5 @@ pyinstaller game.py --onefile --noconsole
     - join TWO enemies together
 
 - jigsaw game
-
-
 
 - amonugs type game
