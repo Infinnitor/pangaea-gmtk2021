@@ -1,7 +1,14 @@
 # gamists-gmtk-2021
-Ye it the game jam
+This project was made for the 2021 GMTK game jam. The theme for that jam was "joined together" so we decided to make a game about a continent joining together with other continents. The main focus of our game ended up being on the dialogue as it sort of morphed into a visual novel.
 
-# main idea will go here:
+We didn't really manage to come up with a good gameplay link for the theme, so we settled on having the continents play Xs and Os with each other to decide whether or not they would join.
+
+The time we had to make the game was 48 hours, however we finished it in less than that. This was our first game jam, and there were a lot of mistakes along with messy code, but we enjoyed taking part in the jam.
+
+Everything below is out notes that we took while brainstorming / making the game.
+
+
+# Main idea will go here:
 
 island that wants to be a continent
 - [x] visual novel to convince nations to join your continent

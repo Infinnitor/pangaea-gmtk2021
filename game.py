@@ -272,7 +272,7 @@ class island():
             self.dialogue_speaker.append(dialogue_font.render(t[0], True, (40, 40, 155)))
 
             # Splitting dialogue on | to form newlines
-            dialogue_text = t[1].split("|")
+            dialogue_text = t[1][1:].split("|")
             label = []
             for line in dialogue_text:
                 label.append(dialogue_font.render(line, True, (0, 0, 0)))
@@ -557,7 +557,6 @@ class player():
     def update_draw(self, game):
         # Hitbox for island
         # pygame.draw.rect(game.win, (155, 40, 40), (self.x, self.y, self.width, self.height))
-        print(self.gained_countries)
 
         if("AUSTRALIA" in self.gained_countries):
             game.win.blit(australia_sprites["Head"], (self.x + 160, self.y + self.y_mod))
@@ -587,7 +586,9 @@ def fix_path(relative_path):
 
     abs_path = os.path.join(base_path, relative_path)
 
-    if sys.platform == "linux" or sys.platform == "linux2":
+    if sys.platform == "win32":
+        abs_path = abs_path.replace("/", "\\")
+    else:
         abs_path = abs_path.replace("\\", "/")
 
     print(abs_path)
